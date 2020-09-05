@@ -1,13 +1,12 @@
-#include <iostream>
-//#include "interface.h"
+#include "interface.h"
 using namespace std;
 
 int main()
 {
-/*    Interface pySubInterpreter;
+    Interface pySubInterpreter;
 
     // Start the interface
-    pySubInterpreter.startInterface();*/
+    pySubInterpreter.startInterface();
 
     return 0;
 }

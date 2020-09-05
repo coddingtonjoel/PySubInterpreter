@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.cpp
+interface.h
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.h
+iostream
+-
+iomanip
+-
+
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.h
+vector
+-
+string
+-
+

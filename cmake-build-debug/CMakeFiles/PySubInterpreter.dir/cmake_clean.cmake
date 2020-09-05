@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/PySubInterpreter.dir/Interface.cpp.o"
+  "CMakeFiles/PySubInterpreter.dir/interface.cpp.o"
   "CMakeFiles/PySubInterpreter.dir/main.cpp.o"
   "PySubInterpreter"
   "PySubInterpreter.pdb"

@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug"/>
+				<Option working_dir="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug"/>
+				<Option working_dir="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug"/>
+				<Option working_dir="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="PySubInterpreter">
-				<Option output="/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/PySubInterpreter" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug"/>
+				<Option output="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/PySubInterpreter" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -52,15 +52,15 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 PySubInterpreter"/>
-					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 PySubInterpreter"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="PySubInterpreter/fast">
-				<Option output="/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/PySubInterpreter" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug"/>
+				<Option output="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/PySubInterpreter" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -73,23 +73,23 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 PySubInterpreter/fast"/>
-					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 PySubInterpreter/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/joelcoddington/CLionProjects/PySubInterpreter/Interface.cpp">
+		<Unit filename="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.cpp">
 			<Option target="PySubInterpreter"/>
 		</Unit>
-		<Unit filename="/Users/joelcoddington/CLionProjects/PySubInterpreter/Interface.h">
+		<Unit filename="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.h">
 			<Option target="PySubInterpreter"/>
 		</Unit>
-		<Unit filename="/Users/joelcoddington/CLionProjects/PySubInterpreter/main.cpp">
+		<Unit filename="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/main.cpp">
 			<Option target="PySubInterpreter"/>
 		</Unit>
-		<Unit filename="/Users/joelcoddington/CLionProjects/PySubInterpreter/CMakeLists.txt">
+		<Unit filename="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

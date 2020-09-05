@@ -68,10 +68,10 @@ RM = "/Users/joelcoddington/Library/Application Support/JetBrains/Toolbox/apps/C
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/joelcoddington/CLionProjects/PySubInterpreter
+CMAKE_SOURCE_DIR = /Users/joelcoddington/Documents/CS/repos/PySubInterpreter
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -100,9 +100,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/CMakeFiles /Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/CMakeFiles /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/joelcoddington/CLionProjects/PySubInterpreter/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -143,32 +143,32 @@ PySubInterpreter/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/build
 .PHONY : PySubInterpreter/fast
 
-Interface.o: Interface.cpp.o
+interface.o: interface.cpp.o
 
-.PHONY : Interface.o
+.PHONY : interface.o
 
 # target to build an object file
-Interface.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/Interface.cpp.o
-.PHONY : Interface.cpp.o
+interface.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/interface.cpp.o
+.PHONY : interface.cpp.o
 
-Interface.i: Interface.cpp.i
+interface.i: interface.cpp.i
 
-.PHONY : Interface.i
+.PHONY : interface.i
 
 # target to preprocess a source file
-Interface.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/Interface.cpp.i
-.PHONY : Interface.cpp.i
+interface.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/interface.cpp.i
+.PHONY : interface.cpp.i
 
-Interface.s: Interface.cpp.s
+interface.s: interface.cpp.s
 
-.PHONY : Interface.s
+.PHONY : interface.s
 
 # target to generate assembly for a file
-Interface.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/Interface.cpp.s
-.PHONY : Interface.cpp.s
+interface.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/interface.cpp.s
+.PHONY : interface.cpp.s
 
 main.o: main.cpp.o
 
@@ -206,9 +206,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... PySubInterpreter"
-	@echo "... Interface.o"
-	@echo "... Interface.i"
-	@echo "... Interface.s"
+	@echo "... interface.o"
+	@echo "... interface.i"
+	@echo "... interface.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
