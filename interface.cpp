@@ -1,6 +1,7 @@
 #include "interface.h"
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 
 using namespace std;
 
@@ -15,6 +16,9 @@ void Interface::startInterface() {
         string input;
         cout << ">>> ";
         getline(cin, input);
+
+        // checks if the first 5 characters of the input is "read(" for read command
+        string readCheckCommand = input.substr(0, 5);
 
         // quit
         if (input == "quit" || input == "quit()") {
@@ -32,12 +36,70 @@ void Interface::startInterface() {
         else if (input == "show" || input == "show()") {
             // for each line in programCode variable, print each line
             // if programCode vector is empty, print that there's nothing stored
+            if (!programCode.empty()) {
+                for (int i = 0; i < programCode.size(); i++) {
+                    cout << "[" << i + 1 << "] " << programCode.at(i) << endl;
+                }
+            }
+            else {
+                cout << "No file is currently stored. Store a file using the 'read' command." << endl;
+            }
         }
 
         // read
-        else if (input == "read(<filename>.py)") {
-            // for each line in programCode variable, print each line
-            // if programCode vector is empty, print that there's nothing stored
+        // check if used without parameter
+        else if (readCheckCommand == "read") {
+            cout << "Please enter a file name parameter [ex. read(filename.py)]" << endl;
+        }
+        else if (readCheckCommand == "read(") {
+            // format fileName to match the format: "filename.py"
+            string fileName = input.substr(5);
+
+            // check that the content after '(' was not empty and that the end of the string is ')'
+            if (!fileName.empty() && fileName.substr(fileName.size() - 1) == ")") {
+                fileName.pop_back();
+            }
+
+            // all files with a .py extension MUST be longer than 3 characters
+            // ex: "h.py" (4 chars)
+            if (fileName.length() > 3) {
+                // check if file ends with the .py extension
+                string extension = fileName.substr(fileName.size() - 3);
+
+                if (extension != ".py") {
+                    cout
+                            << "Invalid python file. Make sure the file name you enter ends with '.py'." << endl;
+                } else {
+
+                    ifstream fileStream;
+                    fileStream.open(fileName);
+
+                    // check for file stream errors
+                    if (!fileStream) {
+                        cout << "An error was encountered when reading the file. Check that the file exists within "
+                                "the interpreter directory." << endl;
+                    }
+                    else {
+                        // the file is all ready to go!
+                        // clear current file stored, if any
+                        if (!programCode.empty()) {
+                            programCode.clear();
+                        }
+                        // get line by line and add them to vector
+                        string line;
+                        while (getline(fileStream, line)) {
+                            if (!line.empty()) {
+                                programCode.push_back(line);
+                            }
+                        }
+                        fileStream.close();
+                        cout << "File successfully read. Use the 'show' command to view file content." << endl;
+                    }
+                }
+            }
+            else {
+                cout << "Invalid file name." << endl;
+            }
         }
 
         // help
@@ -54,7 +116,7 @@ void Interface::startInterface() {
         } else if (input == "help(quit)") {
             getCommandUsage("quit");
         } else {
-                cout << "Unknown help parameter. For a list of commands, enter the help utility by typing 'help' and then "
+                cout << "Unknown command. For a list of commands, enter the help utility by typing 'help' and then "
                         "type 'commands'."
                         << endl;
         }
