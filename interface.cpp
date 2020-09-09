@@ -27,8 +27,12 @@ void Interface::startInterface() {
 
         // clear
         else if (input == "clear" || input == "clear()") {
-            for (int i = 0; i < 30; i++) {
-                cout << endl;
+            if (!programCode.empty()) {
+                programCode.clear();
+                cout << "Stored code successfully cleared." << endl;
+            }
+            else {
+                cout << "There is currently no code stored in the program." << endl;
             }
         }
 
@@ -151,7 +155,8 @@ void Interface::getCommandUsage(const string& command) {
                 << "The 'help' command enters the help utility where a user can learn more about a command by entering its name. When used with a parameter, the command usage is explained without entering the help utility [ex. help(read)]."
                 << endl;
     } else if (command == "clear") {
-        cout << "The 'clear' command clears the screen." << endl;
+        cout << "The 'clear' command clears out or deletes any lines that are stored in the program." <<
+        endl;
     } else if (command == "quit") {
         cout << "The 'quit' command quits the PySub interpreter." << endl;
     } else if (command == "read") {
