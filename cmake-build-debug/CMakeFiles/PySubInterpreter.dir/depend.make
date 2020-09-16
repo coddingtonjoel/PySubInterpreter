@@ -3,7 +3,12 @@
 
 CMakeFiles/PySubInterpreter.dir/interface.cpp.o: ../interface.cpp
 CMakeFiles/PySubInterpreter.dir/interface.cpp.o: ../interface.h
+CMakeFiles/PySubInterpreter.dir/interface.cpp.o: ../lexicalanalyzer.h
+
+CMakeFiles/PySubInterpreter.dir/lexicalanalyzer.cpp.o: ../lexicalanalyzer.cpp
+CMakeFiles/PySubInterpreter.dir/lexicalanalyzer.cpp.o: ../lexicalanalyzer.h
 
 CMakeFiles/PySubInterpreter.dir/main.cpp.o: ../interface.h
+CMakeFiles/PySubInterpreter.dir/main.cpp.o: ../lexicalanalyzer.h
 CMakeFiles/PySubInterpreter.dir/main.cpp.o: ../main.cpp
 

@@ -2,10 +2,13 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include "lexicalanalyzer.h"
 
 using namespace std;
 
 void Interface::startInterface() {
+    LexicalAnalyzer lexAnalysis;
+
     cout << "PySUB Interpreter 1.0 - 2020" << endl;
     cout << "Enter program lines or read(<filename>.py) in CLI." << endl;
     cout << "Type 'help' for more information or 'quit' to exit." << endl;
@@ -44,6 +47,16 @@ void Interface::startInterface() {
                 for (int i = 0; i < programCode.size(); i++) {
                     cout << "[" << i + 1 << "] " << programCode.at(i) << endl;
                 }
+            }
+            else {
+                cout << "No file is currently stored. Store a file using the 'read' command." << endl;
+            }
+        }
+
+        // show(tokens)
+        else if (input == "show(tokens)") {
+            if (!programCode.empty()) {
+                readProgram(lexAnalysis);
             }
             else {
                 cout << "No file is currently stored. Store a file using the 'read' command." << endl;
@@ -107,7 +120,7 @@ void Interface::startInterface() {
         }
 
         // help
-        else if (input == "help") {
+        else if (input == "help" || input == "help()") {
             enterHelpUtility();
         } else if (input == "help(help)") {
             getCommandUsage("help");
@@ -175,4 +188,18 @@ void Interface::getCommandUsage(const string& command) {
     } else {
         cout << "Unknown command. If you would like to exit the help utility, type 'exit'." << endl;
     }
+}
+
+void Interface::readProgram(LexicalAnalyzer &lexAnalysis) {
+    if (!runLexer(lexAnalysis)) {
+        lexAnalysis.display(lexAnalysis.tokenInfo);
+    }
+    else {
+        cout << "An error occurred when tokenizing the python file." << endl;
+    }
+}
+
+bool Interface::runLexer(LexicalAnalyzer &lexAnalysis) {
+    lexAnalysis.tokenize(programCode);
+    return false;
 }

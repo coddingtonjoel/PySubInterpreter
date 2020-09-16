@@ -86,6 +86,12 @@
 		<Unit filename="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.h">
 			<Option target="PySubInterpreter"/>
 		</Unit>
+		<Unit filename="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.cpp">
+			<Option target="PySubInterpreter"/>
+		</Unit>
+		<Unit filename="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h">
+			<Option target="PySubInterpreter"/>
+		</Unit>
 		<Unit filename="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/main.cpp">
 			<Option target="PySubInterpreter"/>
 		</Unit>

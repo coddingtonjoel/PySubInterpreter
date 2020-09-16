@@ -170,6 +170,33 @@ interface.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/interface.cpp.s
 .PHONY : interface.cpp.s
 
+lexicalanalyzer.o: lexicalanalyzer.cpp.o
+
+.PHONY : lexicalanalyzer.o
+
+# target to build an object file
+lexicalanalyzer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/lexicalanalyzer.cpp.o
+.PHONY : lexicalanalyzer.cpp.o
+
+lexicalanalyzer.i: lexicalanalyzer.cpp.i
+
+.PHONY : lexicalanalyzer.i
+
+# target to preprocess a source file
+lexicalanalyzer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/lexicalanalyzer.cpp.i
+.PHONY : lexicalanalyzer.cpp.i
+
+lexicalanalyzer.s: lexicalanalyzer.cpp.s
+
+.PHONY : lexicalanalyzer.s
+
+# target to generate assembly for a file
+lexicalanalyzer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/lexicalanalyzer.cpp.s
+.PHONY : lexicalanalyzer.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -209,6 +236,9 @@ help:
 	@echo "... interface.o"
 	@echo "... interface.i"
 	@echo "... interface.s"
+	@echo "... lexicalanalyzer.o"
+	@echo "... lexicalanalyzer.i"
+	@echo "... lexicalanalyzer.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

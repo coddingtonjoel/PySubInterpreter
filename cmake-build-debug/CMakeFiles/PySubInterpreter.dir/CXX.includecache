@@ -15,10 +15,20 @@ iomanip
 -
 fstream
 -
+lexicalanalyzer.h
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
 
 /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.h
 vector
 -
 string
+-
+lexicalanalyzer.h
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
+
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
+string
+-
+vector
 -
 

@@ -3,17 +3,17 @@
 
 #include <vector>
 #include <string>
+#include "lexicalanalyzer.h"
 
-using namespace std;
-
+typedef std::vector<std::string> programType;
 
 class Interface {
 private:
-    typedef vector<string> programType;
     programType programCode;
-
     void enterHelpUtility();
-    void getCommandUsage(const string&);
+    void getCommandUsage(const std::string&);
+    void readProgram(LexicalAnalyzer &lexAnalysis);
+    bool runLexer(LexicalAnalyzer &lexAnalysis);
 public:
     void startInterface();
 };

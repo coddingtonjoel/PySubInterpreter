@@ -4,6 +4,11 @@
 CMakeFiles/PySubInterpreter.dir/interface.cpp.o
  /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.cpp
  /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.h
+ /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
+CMakeFiles/PySubInterpreter.dir/lexicalanalyzer.cpp.o
+ /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.cpp
+ /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
 CMakeFiles/PySubInterpreter.dir/main.cpp.o
  /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.h
+ /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
  /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/main.cpp
