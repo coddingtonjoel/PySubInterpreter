@@ -133,8 +133,18 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                 // single quote
                 if (line[i] == '\"') {
                     while (line[i + counter] != '\"') {
+                        if (line[i + counter] == '\'') {
+                            cout << "**ERROR: Incorrect string literal usage. Expected '\"' and received '\''.**" <<
+                            endl;
+                            break;
+                        }
                         token.push_back(line[i + counter]);
                         counter++;
+                        // unterminated string literal; missing matching quotes
+                        if (counter > line.length()) {
+                            cout << "**ERROR: Unterminated string literal.**" << endl;
+                            break;
+                        }
                     }
                     i = i + counter;
                     token = "\"" + token + "\"";
@@ -143,8 +153,18 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                     // double quote
                 else if (line[i] == '\'') {
                     while (line[i + counter] != '\'') {
+                        if (line[i + counter] == '\"') {
+                            cout << "**ERROR: Incorrect string literal usage. Expected '\'' and received '\"'.**" <<
+                            endl;
+                            break;
+                        }
                         token.push_back(line[i + counter]);
                         counter++;
+                        // unterminated string literal; missing matching quotes
+                        if (counter > line.length()) {
+                            cout << "**ERROR: Unterminated string literal.**" << endl;
+                            break;
+                        }
                     }
                     i = i + counter;
                     token = "\'" + token + "\'";
