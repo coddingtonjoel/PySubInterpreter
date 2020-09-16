@@ -34,6 +34,10 @@ void Interface::startInterface() {
                 programCode.clear();
                 cout << "Stored code successfully cleared." << endl;
             }
+            if (!lexAnalysis.tokenInfo.empty()) {
+                lexAnalysis.tokenInfo.clear();
+                cout << "Stored token info successfully cleared." << endl;
+            }
             else {
                 cout << "There is currently no code stored in the program." << endl;
             }
@@ -87,7 +91,6 @@ void Interface::startInterface() {
                     cout
                             << "Invalid python file. Make sure the file name you enter ends with '.py'." << endl;
                 } else {
-
                     ifstream fileStream;
                     fileStream.open(fileName);
 
@@ -179,7 +182,9 @@ void Interface::getCommandUsage(const string& command) {
     } else if (command == "show") {
         cout
                 << "The 'show' command shows the lines of the program that are stored in program data structure. Include"
-                   " line number when displaying each line of code in the program." << endl;
+                   " line number when displaying each line of code in the program."
+                   << endl;
+        cout << "Additionally, using 'show(tokens)' displays the tokens in each PySub program by line." << endl;
     }
     else if (command == "commands") {
         cout << "Here is a list of available commands. Type one to to learn more information about its usage." << endl;

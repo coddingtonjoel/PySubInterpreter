@@ -13,7 +13,6 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
         tokenLineType lineTokens;
         string token;
         categoryType type;
-        cout << "Starting line: " << line << endl;
 
         // indent
         if (isspace(line[0])) {
@@ -23,6 +22,9 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
         }
 
         for (int i = 0; i < line.size(); i++) {
+            // clear current token, if any
+            token = "";
+
             // numeric literal
             if (isdigit(line[i])) {
                 type = categoryType::NUMERIC_LITERAL;
@@ -34,6 +36,8 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                     token.push_back(line[i + counter]);
                     counter++;
                 }
+                i = i + counter;
+                lineTokens.push_back(make_pair(token, type));
             }
                 // first char is letter cases
             else if (isalpha(line[i])) {
@@ -109,6 +113,18 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                 }
                 lineTokens.push_back(make_pair(token, type));
             }
+            // left parenthesis
+            else if (line[i] == '(') {
+                token = line[i];
+                type = categoryType::LEFT_PAREN;
+                lineTokens.push_back(make_pair(token, type));
+            }
+            // right parenthesis
+            else if (line[i] == ')') {
+                token = line[i];
+                type = categoryType::RIGHT_PAREN;
+                lineTokens.push_back(make_pair(token, type));
+            }
             // string literal
             else if (line[i] == '\"' || line[i] == '\'') {
                 type = categoryType::STRING_LITERAL;
@@ -120,7 +136,8 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                         token.push_back(line[i + counter]);
                         counter++;
                     }
-                    i = i + counter - 1;
+                    i = i + counter;
+                    token = "\"" + token + "\"";
                 }
 
                     // double quote
@@ -129,7 +146,8 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                         token.push_back(line[i + counter]);
                         counter++;
                     }
-                    i = i + counter - 1;
+                    i = i + counter;
+                    token = "\'" + token + "\'";
                 }
                 lineTokens.push_back(make_pair(token, type));
             }
@@ -180,18 +198,6 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                 type = categoryType::ARITH_OP;
                 lineTokens.push_back(make_pair(token, type));
             }
-            // left parenthesis
-            else if (line[i] == '(') {
-                token = line[i];
-                type = categoryType::LEFT_PAREN;
-                lineTokens.push_back(make_pair(token, type));
-            }
-            // right parenthesis
-            else if (line[i] == ')') {
-                token = line[i];
-                type = categoryType::RIGHT_PAREN;
-                lineTokens.push_back(make_pair(token, type));
-            }
             // colon
             else if (line[i] == ':') {
                 token = line[i];
@@ -217,17 +223,8 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
             }
         }
         tokenInfo.push_back(lineTokens);
-        for (const auto& pair : lineTokens) {
-            cout << "Token: " << pair.first << endl;
-        }
         lineTokens.clear();
-        cout << "Cleared" << endl;
     }
-}
-
-// store data in and retrieve data from the tokenInfo data structure
-void LexicalAnalyzer::useTokenData() {
-
 }
 
 // display Lexical Analysis data

@@ -6,25 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.cpp
-interface.h
-/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.h
-iostream
--
-iomanip
--
-fstream
--
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.cpp
 lexicalanalyzer.h
 /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
-
-/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.h
+iostream
+-
+cctype
+-
 vector
 -
 string
 -
-lexicalanalyzer.h
-/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
 
 /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
 string

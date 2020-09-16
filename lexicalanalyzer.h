@@ -42,7 +42,6 @@ public:
     tokenType tokenInfo;
     // tokenize a full file
     void tokenize(std::vector<std::string> &);
-    void useTokenData();
     void display(tokenType &);
 };
 
