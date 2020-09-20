@@ -196,15 +196,12 @@ void Interface::getCommandUsage(const string& command) {
 }
 
 void Interface::readProgram(LexicalAnalyzer &lexAnalysis) {
-    if (!runLexer(lexAnalysis)) {
+    if (runLexer(lexAnalysis)) {
         lexAnalysis.display(lexAnalysis.tokenInfo);
-    }
-    else {
-        cout << "An error occurred when tokenizing the python file." << endl;
     }
 }
 
 bool Interface::runLexer(LexicalAnalyzer &lexAnalysis) {
-    lexAnalysis.tokenize(programCode);
-    return false;
+    // TODO this would be a great place to check for syntax errors in the future??
+    return lexAnalysis.tokenize(programCode);
 }

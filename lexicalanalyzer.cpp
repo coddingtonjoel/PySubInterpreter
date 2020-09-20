@@ -8,196 +8,200 @@ using namespace std;
 
 // generate token and category pairs for each line of code
 // utilize lineTokens?
-void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
-    for (const string& line : codeLines) {
+bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
+    for (int i = 0; i < codeLines.size(); i++) {
         tokenLineType lineTokens;
         string token;
         categoryType type;
 
         // indent
-        if (isspace(line[0])) {
+        if (isspace(codeLines[i][0])) {
             type = categoryType::INDENT;
             token = "____";
             lineTokens.push_back(make_pair(token, type));
         }
 
-        for (int i = 0; i < line.size(); i++) {
+        for (int j = 0; j < codeLines[i].size(); j++) {
             // clear current token, if any
             token = "";
 
             // numeric literal
-            if (isdigit(line[i])) {
+            if (isdigit(codeLines[i][j])) {
                 type = categoryType::NUMERIC_LITERAL;
-                token = line[i];
+                token = codeLines[i][j];
 
                 // check if the next characters are digits too, if so, add them to same token
                 int counter = 1;
-                while (isdigit(line[i + counter])) {
-                    token.push_back(line[i + counter]);
+                while (isdigit(codeLines[i][j + counter])) {
+                    token.push_back(codeLines[i][j + counter]);
                     counter++;
                 }
-                i = i + counter;
+                j = j + counter;
                 lineTokens.push_back(make_pair(token, type));
             }
                 // first char is letter cases
-            else if (isalpha(line[i])) {
+            else if (isalpha(codeLines[i][j])) {
                 // PRINT keyword
-                if (line[i] == 'p' && line[i + 1] == 'r' && line[i + 2] == 'i' && line[i + 3] == 'n' && line[i +
-                                                                                                             4] == 't') {
+                if (codeLines[i][j] == 'p' && codeLines[i][j + 1] == 'r' && codeLines[i][j + 2] == 'i' && codeLines[i][j + 3] == 'n' && codeLines[i][j +
+                                                                                              4] == 't') {
                     token = "print";
                     type = categoryType::KEYWORD;
-                    i = i + 4;
+                    j = j + 4;
                 }
                 // IF keyword
-                else if (line[i] == 'i' && line[i + 1] == 'f') {
+                else if (codeLines[i][j] == 'i' && codeLines[i][j + 1] == 'f') {
                     token = "if";
                     type = categoryType::KEYWORD;
-                    i++;
+                    j++;
                 }
                 // ELIF keyword
-                else if (line[i] == 'e' && line[i + 1] == 'l' && line[i + 2] == 'i' && line[i + 3] == 'f') {
+                else if (codeLines[i][j] == 'e' && codeLines[i][j + 1] == 'l' && codeLines[i][j + 2] == 'i' && codeLines[i][j + 3] == 'f') {
                     token = "elif";
                     type = categoryType::KEYWORD;
-                    i = i + 3;
+                    j = j + 3;
                 }
                 // ELSE keyword
-                else if (line[i] == 'e' && line[i + 1] == 'l' && line[i + 2] == 's' && line[i + 3] == 'e') {
+                else if (codeLines[i][j] == 'e' && codeLines[i][j + 1] == 'l' && codeLines[i][j + 2] == 's' && codeLines[i][j + 3] == 'e') {
                     token = "else";
                     type = categoryType::KEYWORD;
-                    i = i + 3;
+                    j = j + 3;
                 }
                 // FOR keyword
-                else if (line[i] == 'f' && line[i + 1] == 'o' && line[i + 2] == 'r') {
+                else if (codeLines[i][j] == 'f' && codeLines[i][j + 1] == 'o' && codeLines[i][j + 2] == 'r') {
                     token = "for";
                     type = categoryType::KEYWORD;
-                    i = i + 2;
+                    j = j + 2;
                 }
                 // WHILE keyword
-                else if (line[i] == 'w' && line[i + 1] == 'h' && line[i + 2] == 'i' && line[i + 3] == 'l' &&
-                         line[i +
-                              4] == 'e') {
+                else if (codeLines[i][j] == 'w' && codeLines[i][j + 1] == 'h' && codeLines[i][j + 2] == 'i' && codeLines[i][j + 3] == 'l' &&
+                        codeLines[i][j +
+                           4] == 'e') {
                     token = "while";
                     type = categoryType::KEYWORD;
-                    i = i + 4;
+                    j = j + 4;
                 }
                 // AND logical operator
-                else if (line[i] == 'a' && line[i + 1] == 'n' && line[i + 2] == 'd') {
+                else if (codeLines[i][j] == 'a' && codeLines[i][j + 1] == 'n' && codeLines[i][j + 2] == 'd') {
                     token = "and";
                     type = categoryType::LOGICAL_OP;
-                    i = i + 2;
+                    j = j + 2;
                 }
                 // OR logical operator
-                else if (line[i] == 'o' && line[i + 1] == 'r') {
+                else if (codeLines[i][j] == 'o' && codeLines[i][j + 1] == 'r') {
                     token = "or";
                     type = categoryType::LOGICAL_OP;
-                    i++;
+                    j++;
                 }
                 // NOT logical operator
-                else if (line[i] == 'n' && line[i + 1] == 'o' && line[i + 2] == 't') {
+                else if (codeLines[i][j] == 'n' && codeLines[i][j + 1] == 'o' && codeLines[i][j + 2] == 't') {
                     token = "not";
                     type = categoryType::LOGICAL_OP;
-                    i = i + 2;
+                    j = j + 2;
                 }
                 // identifier of some sort
                 else {
-                    token = line[i];
+                    token = codeLines[i][j];
                     type = categoryType::IDENTIFIER;
                     // check if the next characters are part of an identifier
                     int counter = 1;
 
-                    while (isalpha(line[i + counter])) {
-                        token.push_back(line[i + counter]);
+                    while (isalpha(codeLines[i][j + counter])) {
+                        token.push_back(codeLines[i][j + counter]);
                         counter++;
                     }
-                    i = i + counter - 1;
+                    j = j + counter - 1;
                 }
                 lineTokens.push_back(make_pair(token, type));
             }
             // left parenthesis
-            else if (line[i] == '(') {
-                token = line[i];
+            else if (codeLines[i][j] == '(') {
+                token = codeLines[i][j];
                 type = categoryType::LEFT_PAREN;
                 lineTokens.push_back(make_pair(token, type));
             }
             // right parenthesis
-            else if (line[i] == ')') {
-                token = line[i];
+            else if (codeLines[i][j] == ')') {
+                token = codeLines[i][j];
                 type = categoryType::RIGHT_PAREN;
                 lineTokens.push_back(make_pair(token, type));
             }
             // string literal
-            else if (line[i] == '\"' || line[i] == '\'') {
+            else if (codeLines[i][j] == '\"' || codeLines[i][j] == '\'') {
                 type = categoryType::STRING_LITERAL;
                 int counter = 1;
 
                 // single quote
-                if (line[i] == '\"') {
-                    while (line[i + counter] != '\"') {
-                        if (line[i + counter] == '\'') {
-                            cout << "**ERROR: Incorrect string literal usage. Expected '\"' and received '\''.**" <<
+                if (codeLines[i][j] == '\"') {
+                    while (codeLines[i][j + counter] != '\"') {
+                        if (codeLines[i][j + counter] == '\'') {
+                            cout << "\n**ERROR: Incorrect string literal usage. Expected \" and received \'.**\n" <<
                             endl;
-                            break;
+                            cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
+                            return false;
                         }
-                        token.push_back(line[i + counter]);
+                        token.push_back(codeLines[i][j + counter]);
                         counter++;
                         // unterminated string literal; missing matching quotes
-                        if (counter > line.length()) {
-                            cout << "**ERROR: Unterminated string literal.**" << endl;
-                            break;
+                        if (counter > codeLines[i].length()) {
+                            cout << "\n**ERROR: Unterminated string literal.**\n" << endl;
+                            cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
+                            return false;
                         }
                     }
-                    i = i + counter;
+                    j = j + counter;
                     token = "\"" + token + "\"";
                 }
 
                     // double quote
-                else if (line[i] == '\'') {
-                    while (line[i + counter] != '\'') {
-                        if (line[i + counter] == '\"') {
-                            cout << "**ERROR: Incorrect string literal usage. Expected '\'' and received '\"'.**" <<
+                else if (codeLines[i][j] == '\'') {
+                    while (codeLines[i][j + counter] != '\'') {
+                        if (codeLines[i][j + counter] == '\"') {
+                            cout << "\n**ERROR: Incorrect string literal usage. Expected \' and received \".**\n" <<
                             endl;
-                            break;
+                            cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
+                            return false;
                         }
-                        token.push_back(line[i + counter]);
+                        token.push_back(codeLines[i][j + counter]);
                         counter++;
                         // unterminated string literal; missing matching quotes
-                        if (counter > line.length()) {
-                            cout << "**ERROR: Unterminated string literal.**" << endl;
-                            break;
+                        if (counter > codeLines[i].length()) {
+                            cout << "\n**ERROR: Unterminated string literal.**\n" << endl;
+                            cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
+                            return false;
                         }
                     }
-                    i = i + counter;
+                    j = j + counter;
                     token = "\'" + token + "\'";
                 }
                 lineTokens.push_back(make_pair(token, type));
             }
             // comment
-            else if (line[i] == '#') {
-                token = line;
+            else if (codeLines[i][j] == '#') {
+                token = codeLines[i];
                 type = categoryType::COMMENT;
                 lineTokens.push_back(make_pair(token, type));
                 break;
             }
             // <, >
-            else if (line[i] == '>' || line[i] == '<') {
-                token = line[i];
+            else if (codeLines[i][j] == '>' || codeLines[i][j] == '<') {
+                token = codeLines[i][j];
                 type = categoryType::RELATIONAL_OP;
                 lineTokens.push_back(make_pair(token, type));
             }
             // <=, >=
-            else if ((line[i] == '>' || line[i] == '<') && line[i + 1] == '=') {
-                token = line[i] + line[i + 1];
+            else if ((codeLines[i][j] == '>' || codeLines[i][j] == '<') && codeLines[i][j + 1] == '=') {
+                token = codeLines[i][j] + codeLines[i][j + 1];
                 type = categoryType::RELATIONAL_OP;
                 lineTokens.push_back(make_pair(token, type));
-                i++;
+                j++;
             }
             // ==, =
-            else if (line[i] == '=') {
-                if (line[i + 1] == '=') {
+            else if (codeLines[i][j] == '=') {
+                if (codeLines[i][j + 1] == '=') {
                     token = "==";
                     type = categoryType::RELATIONAL_OP;
                     lineTokens.push_back(make_pair(token, type));
-                    i++;
+                    j++;
                 }
                 else {
                     token = "=";
@@ -206,38 +210,38 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                 }
             }
             // !=
-            else if (line[i] == '!' && line[i + 1] == '=') {
+            else if (codeLines[i][j] == '!' && codeLines[i][j + 1] == '=') {
                 token = "!=";
                 type = categoryType::RELATIONAL_OP;
                 lineTokens.push_back(make_pair(token, type));
-                i++;
+                j++;
             }
             // arithmetic operators
-            else if (line[i] == '+' || line[i] == '-' || line[i] == '*' || line[i] == '/' || line[i] == '%') {
-                token = line[i];
+            else if (codeLines[i][j] == '+' || codeLines[i][j] == '-' || codeLines[i][j] == '*' || codeLines[i][j] == '/' || codeLines[i][j] == '%') {
+                token = codeLines[i][j];
                 type = categoryType::ARITH_OP;
                 lineTokens.push_back(make_pair(token, type));
             }
             // colon
-            else if (line[i] == ':') {
-                token = line[i];
+            else if (codeLines[i][j] == ':') {
+                token = codeLines[i][j];
                 type = categoryType::COLON;
                 lineTokens.push_back(make_pair(token, type));
             }
             // comma
-            else if (line[i] == ',') {
-                token = line[i];
+            else if (codeLines[i][j] == ',') {
+                token = codeLines[i][j];
                 type = categoryType::COMMA;
                 lineTokens.push_back(make_pair(token, type));
             }
             // white space
-            else if (isspace(line[i])) {
+            else if (isspace(codeLines[i][j])) {
                 // basically just do nothing here
-                token = line[i];
+                token = codeLines[i][j];
             }
             // unknown
             else {
-                token = line[i];
+                token = codeLines[i][j];
                 type = categoryType::UNKNOWN;
                 lineTokens.push_back(make_pair(token, type));
             }
@@ -245,6 +249,7 @@ void LexicalAnalyzer::tokenize(vector<string> &codeLines) {
         tokenInfo.push_back(lineTokens);
         lineTokens.clear();
     }
+    return true;
 }
 
 // display Lexical Analysis data
