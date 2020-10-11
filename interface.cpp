@@ -3,11 +3,13 @@
 #include <iomanip>
 #include <fstream>
 #include "lexicalanalyzer.h"
+#include "expevaluator.h"
 
 using namespace std;
 
 void Interface::startInterface() {
     LexicalAnalyzer lexAnalysis;
+    expEvaluator expEvaluation;
 
     cout << "PySUB Interpreter 1.0 - 2020" << endl;
     cout << "Enter program lines or read(<filename>.py) in CLI." << endl;
@@ -37,6 +39,10 @@ void Interface::startInterface() {
             if (!lexAnalysis.tokenInfo.empty()) {
                 lexAnalysis.tokenInfo.clear();
                 cout << "Stored token info successfully cleared." << endl;
+            }
+            if (!expEvaluation.symbolTable.empty()) {
+                expEvaluation.symbolTable.clear();
+                cout << "Stored symbol table successfully cleared." << endl;
             }
             else {
                 cout << "There is currently no code stored in the program." << endl;

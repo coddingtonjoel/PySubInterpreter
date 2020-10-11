@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/PySubInterpreter.dir/expevaluator.cpp.o"
   "CMakeFiles/PySubInterpreter.dir/interface.cpp.o"
   "CMakeFiles/PySubInterpreter.dir/lexicalanalyzer.cpp.o"
   "CMakeFiles/PySubInterpreter.dir/main.cpp.o"

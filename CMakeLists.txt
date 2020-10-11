@@ -3,4 +3,4 @@ project(PySubInterpreter)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(PySubInterpreter main.cpp interface.cpp interface.h lexicalanalyzer.cpp lexicalanalyzer.h)
+add_executable(PySubInterpreter main.cpp interface.cpp interface.h lexicalanalyzer.cpp lexicalanalyzer.h expevaluator.cpp expevaluator.h)

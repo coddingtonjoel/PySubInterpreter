@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/expevaluator.cpp">
+			<Option target="PySubInterpreter"/>
+		</Unit>
+		<Unit filename="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/expevaluator.h">
+			<Option target="PySubInterpreter"/>
+		</Unit>
 		<Unit filename="/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.cpp">
 			<Option target="PySubInterpreter"/>
 		</Unit>

@@ -1,7 +1,3 @@
-//
-// Created by Joel Coddington on 9/15/20.
-//
-
 #ifndef PYSUBINTERPRETER_LEXICALANALYZER_H
 #define PYSUBINTERPRETER_LEXICALANALYZER_H
 
@@ -37,7 +33,7 @@ typedef std::pair<std::string, categoryType> pairType;
 
 class LexicalAnalyzer {
 private:
-public:
+    friend class Interface;
     // main structure
     tokenType tokenInfo;
     // tokenize a full file

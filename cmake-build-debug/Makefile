@@ -143,6 +143,33 @@ PySubInterpreter/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/build
 .PHONY : PySubInterpreter/fast
 
+expevaluator.o: expevaluator.cpp.o
+
+.PHONY : expevaluator.o
+
+# target to build an object file
+expevaluator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/expevaluator.cpp.o
+.PHONY : expevaluator.cpp.o
+
+expevaluator.i: expevaluator.cpp.i
+
+.PHONY : expevaluator.i
+
+# target to preprocess a source file
+expevaluator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/expevaluator.cpp.i
+.PHONY : expevaluator.cpp.i
+
+expevaluator.s: expevaluator.cpp.s
+
+.PHONY : expevaluator.s
+
+# target to generate assembly for a file
+expevaluator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PySubInterpreter.dir/build.make CMakeFiles/PySubInterpreter.dir/expevaluator.cpp.s
+.PHONY : expevaluator.cpp.s
+
 interface.o: interface.cpp.o
 
 .PHONY : interface.o
@@ -233,6 +260,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... PySubInterpreter"
+	@echo "... expevaluator.o"
+	@echo "... expevaluator.i"
+	@echo "... expevaluator.s"
 	@echo "... interface.o"
 	@echo "... interface.i"
 	@echo "... interface.s"
