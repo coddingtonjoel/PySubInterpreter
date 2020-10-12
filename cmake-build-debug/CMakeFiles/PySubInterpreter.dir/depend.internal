@@ -4,6 +4,7 @@
 CMakeFiles/PySubInterpreter.dir/expevaluator.cpp.o
  /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/expevaluator.cpp
  /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/expevaluator.h
+ /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
 CMakeFiles/PySubInterpreter.dir/interface.cpp.o
  /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/expevaluator.h
  /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.cpp

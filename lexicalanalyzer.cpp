@@ -29,14 +29,13 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
             if (isdigit(codeLines[i][j])) {
                 type = categoryType::NUMERIC_LITERAL;
                 token = codeLines[i][j];
-
                 // check if the next characters are digits too, if so, add them to same token
                 int counter = 1;
-                while (isdigit(codeLines[i][j + counter])) {
+                while (isdigit(codeLines[i][j + counter]) || codeLines[i][j + counter] == '.') {
                     token.push_back(codeLines[i][j + counter]);
                     counter++;
                 }
-                j = j + counter;
+                j = j + counter - 1;
                 lineTokens.push_back(make_pair(token, type));
             }
                 // first char is letter cases

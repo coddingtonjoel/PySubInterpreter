@@ -34,6 +34,7 @@ typedef std::pair<std::string, categoryType> pairType;
 class LexicalAnalyzer {
 private:
     friend class Interface;
+    friend class expEvaluator;
     // main structure
     tokenType tokenInfo;
     // tokenize a full file

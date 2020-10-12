@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include "lexicalanalyzer.h"
 
 
 class expEvaluator {
@@ -12,8 +13,8 @@ private:
     typedef std::map<std::string, std::string> symbolTableType;
     symbolTableType symbolTable;
 
-    std::string infixToPostfix(std::string&);
-    double postfixEval(std::string&);
+    std::string infixToPostfix(tokenType);
+    double postfixEval(tokenType);
     void storeSymbol(const std::string&, std::string);
     std::string getSymbol(const std::string&);
     void clearAllSymbols();

@@ -3,6 +3,7 @@
 
 CMakeFiles/PySubInterpreter.dir/expevaluator.cpp.o: ../expevaluator.cpp
 CMakeFiles/PySubInterpreter.dir/expevaluator.cpp.o: ../expevaluator.h
+CMakeFiles/PySubInterpreter.dir/expevaluator.cpp.o: ../lexicalanalyzer.h
 
 CMakeFiles/PySubInterpreter.dir/interface.cpp.o: ../expevaluator.h
 CMakeFiles/PySubInterpreter.dir/interface.cpp.o: ../interface.cpp

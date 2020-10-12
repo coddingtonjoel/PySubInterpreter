@@ -4,6 +4,7 @@
 #include <fstream>
 #include "lexicalanalyzer.h"
 #include "expevaluator.h"
+#include <vector>
 
 using namespace std;
 
@@ -142,9 +143,20 @@ void Interface::startInterface() {
         } else if (input == "help(quit)") {
             getCommandUsage("quit");
         } else {
-                cout << "Unknown command. For a list of commands, enter the help utility by typing 'help' and then "
-                        "type 'commands'."
-                        << endl;
+            // inline expression evaluator
+            vector<string> temp;
+            temp.push_back(input);
+            lexAnalysis.tokenize(temp);
+            string postfix = expEvaluation.infixToPostfix(lexAnalysis.tokenInfo);
+            lexAnalysis.tokenInfo.clear();
+            temp.clear();
+            temp.push_back(postfix);
+            lexAnalysis.tokenize(temp);
+            cout << expEvaluation.postfixEval(lexAnalysis.tokenInfo) << endl;
+
+            // clear token info because it was an inline expression
+            // but DON'T clear symbol table here!
+            lexAnalysis.tokenInfo.clear();
         }
     }
 }
