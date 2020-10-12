@@ -144,6 +144,7 @@ void Interface::startInterface() {
             getCommandUsage("quit");
         } else {
             // inline expression evaluator
+            lexAnalysis.tokenInfo.clear();
             vector<string> temp;
             temp.push_back(input);
             lexAnalysis.tokenize(temp);
