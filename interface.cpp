@@ -12,7 +12,7 @@ void Interface::startInterface() {
     LexicalAnalyzer lexAnalysis;
     expEvaluator expEvaluation;
 
-    cout << "PySUB Interpreter 1.0 - 2020" << endl;
+    cout << "Python Interpreter 1.0 - Joel Coddington ©2020" << endl;
     cout << "Enter program lines or read(<filename>.py) in CLI." << endl;
     cout << "Type 'help' for more information or 'quit' to exit." << endl;
 
