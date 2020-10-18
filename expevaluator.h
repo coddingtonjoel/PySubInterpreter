@@ -19,6 +19,7 @@ private:
     std::string getSymbol(const std::string&);
     void clearAllSymbols();
     int getPrecedence(const std::string&);
+    std::string checkForErrors(tokenType);
 };
 
 

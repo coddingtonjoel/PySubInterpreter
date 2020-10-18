@@ -42,25 +42,33 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
             else if (isalpha(codeLines[i][j])) {
                 // PRINT keyword
                 if (codeLines[i][j] == 'p' && codeLines[i][j + 1] == 'r' && codeLines[i][j + 2] == 'i' && codeLines[i][j + 3] == 'n' && codeLines[i][j +
-                                                                                              4] == 't') {
+                                                                                              4] == 't' &&
+                                                                                              !isalpha(codeLines[i][j
+                                                                                              + 5])) {
                     token = "print";
                     type = categoryType::KEYWORD;
                     j = j + 4;
                 }
                 // IF keyword
-                else if (codeLines[i][j] == 'i' && codeLines[i][j + 1] == 'f') {
+                else if (codeLines[i][j] == 'i' && codeLines[i][j + 1] == 'f' &&
+                                                   !isalpha(codeLines[i][j
+                                                                         + 2])) {
                     token = "if";
                     type = categoryType::KEYWORD;
                     j++;
                 }
                 // ELIF keyword
-                else if (codeLines[i][j] == 'e' && codeLines[i][j + 1] == 'l' && codeLines[i][j + 2] == 'i' && codeLines[i][j + 3] == 'f') {
+                else if (codeLines[i][j] == 'e' && codeLines[i][j + 1] == 'l' && codeLines[i][j + 2] == 'i' && codeLines[i][j + 3] == 'f' &&
+                                                                                                               !isalpha(codeLines[i][j
+                                                                                                                                     + 4])) {
                     token = "elif";
                     type = categoryType::KEYWORD;
                     j = j + 3;
                 }
                 // ELSE keyword
-                else if (codeLines[i][j] == 'e' && codeLines[i][j + 1] == 'l' && codeLines[i][j + 2] == 's' && codeLines[i][j + 3] == 'e') {
+                else if (codeLines[i][j] == 'e' && codeLines[i][j + 1] == 'l' && codeLines[i][j + 2] == 's' && codeLines[i][j + 3] == 'e' &&
+                                                                                                               !isalpha(codeLines[i][j
+                                                                                                                                     + 4])) {
                     token = "else";
                     type = categoryType::KEYWORD;
                     j = j + 3;
@@ -74,25 +82,33 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                 // WHILE keyword
                 else if (codeLines[i][j] == 'w' && codeLines[i][j + 1] == 'h' && codeLines[i][j + 2] == 'i' && codeLines[i][j + 3] == 'l' &&
                         codeLines[i][j +
-                           4] == 'e') {
+                           4] == 'e' &&
+                        !isalpha(codeLines[i][j
+                                              + 5])) {
                     token = "while";
                     type = categoryType::KEYWORD;
                     j = j + 4;
                 }
                 // AND logical operator
-                else if (codeLines[i][j] == 'a' && codeLines[i][j + 1] == 'n' && codeLines[i][j + 2] == 'd') {
+                else if (codeLines[i][j] == 'a' && codeLines[i][j + 1] == 'n' && codeLines[i][j + 2] == 'd' &&
+                                                                                 !isalpha(codeLines[i][j
+                                                                                                       + 3])) {
                     token = "and";
                     type = categoryType::LOGICAL_OP;
                     j = j + 2;
                 }
                 // OR logical operator
-                else if (codeLines[i][j] == 'o' && codeLines[i][j + 1] == 'r') {
+                else if (codeLines[i][j] == 'o' && codeLines[i][j + 1] == 'r' &&
+                                                   !isalpha(codeLines[i][j
+                                                                         + 2])) {
                     token = "or";
                     type = categoryType::LOGICAL_OP;
                     j++;
                 }
                 // NOT logical operator
-                else if (codeLines[i][j] == 'n' && codeLines[i][j + 1] == 'o' && codeLines[i][j + 2] == 't') {
+                else if (codeLines[i][j] == 'n' && codeLines[i][j + 1] == 'o' && codeLines[i][j + 2] == 't' &&
+                                                                                 !isalpha(codeLines[i][j
+                                                                                                       + 3])) {
                     token = "not";
                     type = categoryType::LOGICAL_OP;
                     j = j + 2;
@@ -117,14 +133,36 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                 token = codeLines[i][j];
                 type = categoryType::LEFT_PAREN;
                 lineTokens.push_back(make_pair(token, type));
+                int counter = 1;
+
+                // catch missing right parentheses
+                while (codeLines[i][j + counter] != ')') {
+                    if (counter > codeLines[i].length()) {
+                        cout << "\n**ERROR: Unbalanced parentheses.**\n" << endl;
+                        cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
+                        return false;
+                    }
+                    counter++;
+                }
             }
             // right parenthesis
             else if (codeLines[i][j] == ')') {
                 token = codeLines[i][j];
                 type = categoryType::RIGHT_PAREN;
                 lineTokens.push_back(make_pair(token, type));
+
+                // catch missing left parentheses
+                int counter = 0;
+                while (codeLines[i][counter] != '(') {
+                    if (counter > codeLines[i].length()) {
+                        cout << "\n**ERROR: Unbalanced parentheses.**\n" << endl;
+                        cout << "Line " << i + 1 << " : " << codeLines[i] << endl << endl;
+                        return false;
+                    }
+                    counter++;
+                }
             }
-            // string literal
+            // string literal + catch unterminated string literal
             else if (codeLines[i][j] == '\"' || codeLines[i][j] == '\'') {
                 type = categoryType::STRING_LITERAL;
                 int counter = 1;

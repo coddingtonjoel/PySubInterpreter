@@ -142,19 +142,23 @@ void Interface::startInterface() {
             getCommandUsage("read");
         } else if (input == "help(quit)") {
             getCommandUsage("quit");
-        } else {
+        } else if (!input.empty()){
             // inline expression evaluator
             lexAnalysis.tokenInfo.clear();
             vector<string> temp;
             temp.push_back(input);
-            lexAnalysis.tokenize(temp);
-            string postfix = expEvaluation.infixToPostfix(lexAnalysis.tokenInfo);
-            lexAnalysis.tokenInfo.clear();
-            temp.clear();
-            temp.push_back(postfix);
-            lexAnalysis.tokenize(temp);
-            cout << expEvaluation.postfixEval(lexAnalysis.tokenInfo) << endl;
+            bool isValid = lexAnalysis.tokenize(temp);
 
+            // proofread code for errors before running it through infix/postfix conversions
+            string result = expEvaluation.checkForErrors(lexAnalysis.tokenInfo);
+            if (result != "err" && isValid) {
+                string postfix = expEvaluation.infixToPostfix(lexAnalysis.tokenInfo);
+                lexAnalysis.tokenInfo.clear();
+                temp.clear();
+                temp.push_back(postfix);
+                lexAnalysis.tokenize(temp);
+                cout << expEvaluation.postfixEval(lexAnalysis.tokenInfo) << endl;
+            }
             // clear token info because it was an inline expression
             // but DON'T clear symbol table here!
             lexAnalysis.tokenInfo.clear();
@@ -221,6 +225,5 @@ void Interface::readProgram(LexicalAnalyzer &lexAnalysis) {
 }
 
 bool Interface::runLexer(LexicalAnalyzer &lexAnalysis) {
-    // TODO this would be a great place to check for syntax errors in the future??
     return lexAnalysis.tokenize(programCode);
 }
