@@ -6,22 +6,32 @@
 
 #IncludeRegexTransform: 
 
-/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/expevaluator.cpp
-expevaluator.h
 /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/expevaluator.h
-iostream
+map
 -
-stack
+string
 -
 lexicalanalyzer.h
 /Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
-string
+
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.cpp
+interface.h
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.h
+iostream
 -
-cmath
+iomanip
+-
+fstream
+-
+lexicalanalyzer.h
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/lexicalanalyzer.h
+expevaluator.h
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/expevaluator.h
+vector
 -
 
-/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/expevaluator.h
-map
+/Users/joelcoddington/Documents/CS/repos/PySubInterpreter/interface.h
+vector
 -
 string
 -

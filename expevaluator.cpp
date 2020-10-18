@@ -247,16 +247,20 @@ std::string expEvaluator::checkForErrors(tokenType allTokens) {
             // if a numeric literal is directly on the left of a left parentheses -- ex. 4(4 + 5)
             else if (allTokens[row][pair].second == categoryType::LEFT_PAREN && allTokens[row][pair - 1].second ==
             categoryType::NUMERIC_LITERAL) {
-                cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                cout << "Line " << row + 1 << ":" << pair << endl << endl;
-                return "err";
+                if (pair != 0) {
+                    cout << "\n**ERROR: Invalid syntax.**\n" << endl;
+                    cout << "Line " << row + 1 << ":" << pair << endl << endl;
+                    return "err";
+                }
             }
             // if a numeric literal is directly on the right of a right parentheses -- ex. (4 + 5)4
             else if (allTokens[row][pair].second == categoryType::RIGHT_PAREN && allTokens[row][pair + 1].second ==
             categoryType::NUMERIC_LITERAL) {
-                cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                cout << "Line " << row + 1 << ":" << pair << endl << endl;
-                return "err";
+                if (pair != allTokens[row].size() - 1) {
+                    cout << "\n**ERROR: Invalid syntax.**\n" << endl;
+                    cout << "Line " << row + 1 << ":" << pair << endl << endl;
+                    return "err";
+                }
             }
             // if any unknown character exists
             else if (allTokens[row][pair].second == categoryType::UNKNOWN) {

@@ -219,18 +219,31 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                 lineTokens.push_back(make_pair(token, type));
                 break;
             }
-            // <, >
-            else if (codeLines[i][j] == '>' || codeLines[i][j] == '<') {
-                token = codeLines[i][j];
-                type = categoryType::RELATIONAL_OP;
-                lineTokens.push_back(make_pair(token, type));
-            }
-            // <=, >=
-            else if ((codeLines[i][j] == '>' || codeLines[i][j] == '<') && codeLines[i][j + 1] == '=') {
-                token = codeLines[i][j] + codeLines[i][j + 1];
+            // <=
+            else if (codeLines[i][j] == '<' && codeLines[i][j + 1] == '=') {
+                token = "<=";
                 type = categoryType::RELATIONAL_OP;
                 lineTokens.push_back(make_pair(token, type));
                 j++;
+            }
+            // >=
+            else if (codeLines[i][j] == '>' && codeLines[i][j + 1] == '=') {
+                token = ">=";
+                type = categoryType::RELATIONAL_OP;
+                lineTokens.push_back(make_pair(token, type));
+                j++;
+            }
+            // <, >
+            else if (codeLines[i][j] == '>') {
+                token = ">";
+                type = categoryType::RELATIONAL_OP;
+                lineTokens.push_back(make_pair(token, type));
+            }
+                // <, >
+            else if (codeLines[i][j] == '<') {
+                token = "<";
+                type = categoryType::RELATIONAL_OP;
+                lineTokens.push_back(make_pair(token, type));
             }
             // ==, =
             else if (codeLines[i][j] == '=') {
