@@ -135,22 +135,29 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                 lineTokens.push_back(make_pair(token, type));
                 int counter = 1;
 
+                
+
                 // catch the case where codeLines[i][j + counter] doesn't exist
                 if (j + counter > codeLines[i].length()) {
                     cout << "\n**ERROR: Unbalanced parentheses.**\n" << endl;
                     cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
                     return false;
+
+
+                }
+                else if (j + counter < codeLines[i].length()) {
+                    // catch missing right parentheses
+                    while (codeLines[i][j + counter] != ')') {
+                        if (counter == codeLines[i].length()) {
+                            cout << "\n**ERROR: Unbalanced parentheses.**\n" << endl;
+                            cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
+                            return false;
+                        }
+                        counter++;
+                    }
                 }
 
-                // catch missing right parentheses
-                while (codeLines[i][j + counter] != ')') {
-                    if (counter == codeLines[i].length()) {
-                        cout << "\n**ERROR: Unbalanced parentheses.**\n" << endl;
-                        cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
-                        return false;
-                    }
-                    counter++;
-                }
+                
             }
             // right parenthesis
             else if (codeLines[i][j] == ')') {
@@ -158,22 +165,11 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                 type = categoryType::RIGHT_PAREN;
                 lineTokens.push_back(make_pair(token, type));
 
-
-
-                // catch missing left parentheses
-                int counter = 0;
+                // right parenthesis logically cannot be the first character in a line
                 if (codeLines[i][0] == ')') {
                     cout << "\n**ERROR: Unbalanced parentheses.**\n" << endl;
                     cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
                     return false;
-                }
-                while (codeLines[i][counter] != '(') {
-                    if (counter > 0) {
-                        cout << "\n**ERROR: Unbalanced parentheses.**\n" << endl;
-                        cout << "Line " << i + 1 << " : " << codeLines[i] << endl << endl;
-                        return false;
-                    }
-                    counter--;
                 }
             }
             // string literal + catch unterminated string literal
