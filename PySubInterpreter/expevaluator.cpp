@@ -187,10 +187,10 @@ std::string expEvaluator::checkForErrors(tokenLineType lineTokens) {
     // ......     ............
     for (int row = 0; row < lineTokens.size(); row++) {
             // handle identifiers FOR NOW
-            if (lineTokens[row].second == categoryType::IDENTIFIER) {
+            /*if (lineTokens[row].second == categoryType::IDENTIFIER) {
                 cout << "\n**ERROR: Invalid syntax.**\n" << endl;
                 return "err";
-            }
+            }*/
             // if an operator is the very first or very last token within a line
             else if (lineTokens[row].second == categoryType::ARITH_OP || lineTokens[row].second ==
                 categoryType::ASSIGNMENT_OP || lineTokens[row].second == categoryType::RELATIONAL_OP ||
@@ -284,15 +284,6 @@ std::string expEvaluator::evaluate(tokenLineType line) {
                 if (line.size() == 1) {
                     return line[i].first;
                 }
-                /* else if (line.size() > 1) {
-                    int counter = 1;
-                    while (line[i + counter].second != categoryType::STRING_LITERAL) {
-                        if (i + counter - 1 > line.size()) {
-                            break;
-                        }
-                        subLine.push_back(line[i]);
-                    }
-                } */
             }
             else {
                 string postfix = infixToPostfix(line);

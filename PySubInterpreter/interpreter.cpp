@@ -35,10 +35,16 @@ bool Interpreter::interpretLine(tokenLineType lineTokens) {
 					}
 					counter++;
 				}
+				// push back outstanding line on the right of last comma, or the sole expr with no comma in the statement
 				subLines.push_back(subLine);
 
-				for (auto line : subLines) {
-					cout << line[0].first << endl;
+				// if subLines.size() > 1, it's assumed that it is an expression
+				for (int i = 0; i < subLines.size(); i++) {
+					if (subLines[i].size() > 1) {
+						string temp = expEvaluation.evaluate(subLines[i]);
+						subLines[i].clear();
+						subLines[i].push_back(make_pair(temp, categoryType::STRING_LITERAL));
+					}
 				}
 
 				// get rid of quotes on the string literals
@@ -53,7 +59,6 @@ bool Interpreter::interpretLine(tokenLineType lineTokens) {
 							}	
 						}
 						subLines[i][0].first = temp;
-						cout << temp << endl;
 					}
 					// double quotes
 					if (firstChar[0] == '\"') {

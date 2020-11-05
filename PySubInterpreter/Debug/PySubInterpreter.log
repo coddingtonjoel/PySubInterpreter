@@ -2,6 +2,7 @@
 C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(14,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(22,26): warning C4018: '>': signed/unsigned mismatch
 C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(28,93): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(45,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(73,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(42,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(52,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(79,23): warning C4018: '<': signed/unsigned mismatch
   PySubInterpreter.vcxproj -> C:\Users\Joel\source\repos\PySubInterpreter\Debug\PySubInterpreter.exe
