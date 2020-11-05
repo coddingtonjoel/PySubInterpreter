@@ -2,15 +2,18 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <vector>
 #include "lexicalanalyzer.h"
 #include "expevaluator.h"
-#include <vector>
+#include "interpreter.h"
 
 using namespace std;
 
 void Interface::startInterface() {
     LexicalAnalyzer lexAnalysis;
     expEvaluator expEvaluation;
+    Interpreter pysubi;
+
 
     cout << "Python Interpreter 1.0 - Joel Coddington ©2020" << endl;
     cout << "Enter program lines or read(<filename>.py) in CLI." << endl;
@@ -68,6 +71,37 @@ void Interface::startInterface() {
         else if (input == "show(tokens)") {
             if (!programCode.empty()) {
                 readProgram(lexAnalysis);
+            }
+            else {
+                cout << "No file is currently stored. Store a file using the 'read' command." << endl;
+            }
+        }
+
+        // show(variables)
+        else if (input == "show(variables)") {
+            if (!expEvaluation.symbolTable.empty()) {
+                cout << "\nStored Symbols:" << endl;
+                cout << "----------------------------------------------------------" << endl;
+                for (auto pair : expEvaluation.symbolTable) {
+                    cout << setw(15) << left << pair.first << pair.second << endl;
+                }
+                cout << "----------------------------------------------------------" << endl << endl;
+            }
+            else {
+                cout << "No variables are currently stored. Store a file using the 'read' command." << endl;
+            }
+        }
+
+        // run
+        else if (input == "run" || input == "run()") {
+            if (!programCode.empty()) {
+                lexAnalysis.tokenInfo.clear();
+                bool isValid = lexAnalysis.tokenize(programCode);
+
+                // run each tokenized line through the interpreter
+                for (int i = 0; i < programCode.size(); i++) {
+                    pysubi.interpretLine(lexAnalysis.tokenInfo[i]);
+                }
             }
             else {
                 cout << "No file is currently stored. Store a file using the 'read' command." << endl;
@@ -142,26 +176,16 @@ void Interface::startInterface() {
             getCommandUsage("read");
         } else if (input == "help(quit)") {
             getCommandUsage("quit");
-        } else if (!input.empty()){
+        }
+        else if (input == "help(run)") {
+            getCommandUsage("run");
+        } else if (!input.empty()) {
             // inline expression evaluator
             lexAnalysis.tokenInfo.clear();
             vector<string> temp;
             temp.push_back(input);
-            bool isValid = lexAnalysis.tokenize(temp);
-
-            // proofread code for errors before running it through infix/postfix conversions
-            string result = expEvaluation.checkForErrors(lexAnalysis.tokenInfo);
-            if (result != "err" && isValid) {
-                string postfix = expEvaluation.infixToPostfix(lexAnalysis.tokenInfo);
-                lexAnalysis.tokenInfo.clear();
-                temp.clear();
-                temp.push_back(postfix);
-                lexAnalysis.tokenize(temp);
-                cout << expEvaluation.postfixEval(lexAnalysis.tokenInfo) << endl;
-            }
-            // clear token info because it was an inline expression
-            // but DON'T clear symbol table here!
-            lexAnalysis.tokenInfo.clear();
+            lexAnalysis.tokenize(temp);
+            cout << expEvaluation.evaluate(lexAnalysis.tokenInfo[0]) << endl;
         }
     }
 }
@@ -207,12 +231,15 @@ void Interface::getCommandUsage(const string& command) {
                 << "The 'show' command shows the lines of the program that are stored in program data structure. Include"
                    " line number when displaying each line of code in the program."
                    << endl;
-        cout << "Additionally, using 'show(tokens)' displays the tokens in each PySub program by line." << endl;
+        cout << "Additionally, using 'show(tokens)' displays the tokens in each PySub program by line, and 'show(variables)' displays the list of stored variables within the symbol table." << endl;
     }
     else if (command == "commands") {
         cout << "Here is a list of available commands. Type one to to learn more information about its usage." << endl;
         cout << setw(10) << left << "help" << setw(10) << left << "clear" << setw(10) << left << "quit" << endl;
         cout << setw(10) << left << "read" << setw(10) << left << "show" << endl;
+    }
+    else if (command == "run") {
+        cout << "The 'run' command runs the read code and displays the output of the evaluated lines." << endl;
     } else {
         cout << "Unknown command. If you would like to exit the help utility, type 'exit'." << endl;
     }

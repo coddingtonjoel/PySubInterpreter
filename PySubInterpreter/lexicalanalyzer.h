@@ -35,6 +35,7 @@ class LexicalAnalyzer {
 private:
     friend class Interface;
     friend class expEvaluator;
+    friend class Interpreter;
     // main structure
     tokenType tokenInfo;
     // tokenize a full file

@@ -9,17 +9,19 @@
 class expEvaluator {
 private:
     friend class Interface;
+    friend class Interpreter;
 
     typedef std::map<std::string, std::string> symbolTableType;
     symbolTableType symbolTable;
 
-    std::string infixToPostfix(tokenType);
-    double postfixEval(tokenType);
+    std::string infixToPostfix(tokenLineType);
+    double postfixEval(tokenLineType);
     void storeSymbol(const std::string&, std::string);
     std::string getSymbol(const std::string&);
     void clearAllSymbols();
     int getPrecedence(const std::string&);
-    std::string checkForErrors(tokenType);
+    std::string checkForErrors(tokenLineType);
+    std::string evaluate(tokenLineType);
 };
 
 

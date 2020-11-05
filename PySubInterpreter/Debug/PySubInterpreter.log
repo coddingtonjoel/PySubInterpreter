@@ -1,10 +1,4 @@
-﻿  lexicalanalyzer.cpp
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\lexicalanalyzer.cpp(12,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\lexicalanalyzer.cpp(24,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\lexicalanalyzer.cpp(141,33): warning C4018: '>': signed/unsigned mismatch
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\lexicalanalyzer.cpp(148,38): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\lexicalanalyzer.cpp(203,37): warning C4018: '>': signed/unsigned mismatch
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\lexicalanalyzer.cpp(225,37): warning C4018: '>': signed/unsigned mismatch
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\lexicalanalyzer.cpp(329,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\lexicalanalyzer.cpp(333,27): warning C4018: '<': signed/unsigned mismatch
+﻿  expevaluator.cpp
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\expevaluator.cpp(188,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\expevaluator.cpp(209,55): warning C4018: '<': signed/unsigned mismatch
   PySubInterpreter.vcxproj -> C:\Users\Joel\source\repos\PySubInterpreter\Debug\PySubInterpreter.exe

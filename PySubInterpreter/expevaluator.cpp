@@ -4,15 +4,17 @@
 #include "lexicalanalyzer.h"
 #include <string>
 #include <cmath>
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 
 // infix to postfix
-std::string expEvaluator::infixToPostfix(tokenType allTokens) {
+std::string expEvaluator::infixToPostfix(tokenLineType lineTokens) {
     stack<string> infixStack;
     string postfixExpr;
 
-    for (const auto& tokenPair : allTokens[0]) {
+    for (const auto& tokenPair : lineTokens) {
         stack<string> temp = infixStack;
 
         // numbers
@@ -55,11 +57,11 @@ std::string expEvaluator::infixToPostfix(tokenType allTokens) {
 }
 
 // postfix evaluation
-double expEvaluator::postfixEval(tokenType allTokens) {
+double expEvaluator::postfixEval(tokenLineType lineTokens) {
     stack<string> postfixStack;
 
     // mini-tokenization of postfixExpr
-    for (const auto& tokenPair : allTokens[0]) {
+    for (const auto& tokenPair : lineTokens) {
         // push numbers into stack
         if (tokenPair.second == categoryType::NUMERIC_LITERAL) {
             postfixStack.push(tokenPair.first);
@@ -176,109 +178,116 @@ int expEvaluator::getPrecedence(const string& op) {
 }
 
 // check for syntax errors and missing operands before postfix conversion
-std::string expEvaluator::checkForErrors(tokenType allTokens) {
+std::string expEvaluator::checkForErrors(tokenLineType lineTokens) {
     // example 2D table
 
     // row        pair(s)
     // -----------------------
     // 3 + 10     [3: NUMERIC_LITERAL], [+: ARITHMETIC_OP], [10: NUMERIC_LITERAL]
     // ......     ............
-    for (int row = 0; row < allTokens.size(); row++) {
-        for (int pair = 0; pair < allTokens[row].size(); pair++) {
+    for (int row = 0; row < lineTokens.size(); row++) {
             // handle identifiers FOR NOW
-            if (allTokens[row][pair].second == categoryType::IDENTIFIER) {
+            if (lineTokens[row].second == categoryType::IDENTIFIER) {
                 cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                cout << "Line " << row + 1 << ":" << pair << endl << endl;
                 return "err";
             }
             // if an operator is the very first or very last token within a line
-            else if (allTokens[row][pair].second == categoryType::ARITH_OP || allTokens[row][pair].second ==
-                categoryType::ASSIGNMENT_OP || allTokens[row][pair].second == categoryType::RELATIONAL_OP ||
-                allTokens[row][pair].second == categoryType::LOGICAL_OP) {
-                if (pair == 0 || pair == allTokens[row].size() - 1) {
+            else if (lineTokens[row].second == categoryType::ARITH_OP || lineTokens[row].second ==
+                categoryType::ASSIGNMENT_OP || lineTokens[row].second == categoryType::RELATIONAL_OP ||
+                lineTokens[row].second == categoryType::LOGICAL_OP) {
+                if (row == 0) {
                     cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                    cout << "Line " << row + 1 << ":" << pair << endl << endl;
                     return "err";
                 }
             }
             // if any unknown character exists
-            else if (allTokens[row][pair].second == categoryType::UNKNOWN) {
+            else if (lineTokens[row].second == categoryType::UNKNOWN) {
                 cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                cout << "Line " << row + 1 << ":" << pair << endl << endl;
                 return "err";
             }
             // checks that require the size of the token structure to be greater than one 
-            else if (allTokens[row].size() > 1 && pair + 1 < allTokens[row].size()) {
+            else if (lineTokens.size() > 1 && row + 1 < lineTokens.size()) {
                 // two numeric literals next to each other
-                if (allTokens[row][pair].second == categoryType::NUMERIC_LITERAL && allTokens[row][pair + 1].second ==
+                if (lineTokens[row].second == categoryType::NUMERIC_LITERAL && lineTokens[row + 1].second ==
                     categoryType::NUMERIC_LITERAL) {
                     cout << "\n**ERROR: Missing operand.**\n" << endl;
-                    cout << "Line " << row + 1 << endl << endl;
                     return "err";
                 }
                 // two arithmetic operators next to each other
-                else if (allTokens[row][pair].second == categoryType::ARITH_OP && allTokens[row][pair + 1].second ==
+                else if (lineTokens[row].second == categoryType::ARITH_OP && lineTokens[row + 1].second ==
                     categoryType::ARITH_OP) {
                     cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                    cout << "Line " << row + 1 << endl << endl;
                     return "err";
                 }
                 // two relational operators next to each other
-                else if (allTokens[row][pair].second == categoryType::RELATIONAL_OP && allTokens[row][pair + 1].second ==
+                else if (lineTokens[row].second == categoryType::RELATIONAL_OP && lineTokens[row + 1].second ==
                     categoryType::RELATIONAL_OP) {
                     cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                    cout << "Line " << row + 1 << endl << endl;
                     return "err";
                 }
                 // two assignment operators next to each other
-                else if (allTokens[row][pair].second == categoryType::ASSIGNMENT_OP && allTokens[row][pair + 1].second ==
+                else if (lineTokens[row].second == categoryType::ASSIGNMENT_OP && lineTokens[row + 1].second ==
                     categoryType::ASSIGNMENT_OP) {
                     cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                    cout << "Line " << row + 1 << endl << endl;
                     return "err";
                 }
                 // two logical operators next to each other
-                else if (allTokens[row][pair].second == categoryType::LOGICAL_OP && allTokens[row][pair + 1].second ==
+                else if (lineTokens[row].second == categoryType::LOGICAL_OP && lineTokens[row + 1].second ==
                     categoryType::LOGICAL_OP) {
                     cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                    cout << "Line " << row + 1 << ":" << pair + 1 << endl << endl;
                     return "err";
                 }
                 // two parentheses operators next to each other with nothing inside
-                else if (allTokens[row][pair].second == categoryType::LEFT_PAREN && allTokens[row][pair + 1].second ==
+                else if (lineTokens[row].second == categoryType::LEFT_PAREN && lineTokens[row + 1].second ==
                     categoryType::RIGHT_PAREN) {
                     cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                    cout << "Line " << row + 1 << ":" << pair << endl << endl;
                     return "err";
                 }
                 // if only one token exists and it's not a numeric literal
-                else if (allTokens[row].size() == 1 && allTokens[row][0].second != categoryType::NUMERIC_LITERAL) {
+                else if (lineTokens.size() == 1 && lineTokens[0].second != categoryType::NUMERIC_LITERAL) {
                     cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                    cout << "Line " << row + 1 << ":" << pair << endl << endl;
                     return "err";
                 }
                 // if a numeric literal is directly on the right of a right parentheses -- ex. (4 + 5)4
-                else if (allTokens[row][pair].second == categoryType::RIGHT_PAREN && allTokens[row][pair + 1].second ==
+                else if (lineTokens[row].second == categoryType::RIGHT_PAREN && lineTokens[row + 1].second ==
                     categoryType::NUMERIC_LITERAL) {
-                    if (pair != allTokens[row].size() - 1) {
+                    if (row != lineTokens.size() - 1) {
                         cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                        cout << "Line " << row + 1 << ":" << pair << endl << endl;
                         return "err";
                     }
                 }
                 
             }
             // if a numeric literal is directly on the left of a left parentheses -- ex. 4(4 + 5)
-            else if (pair > 0) {
-                if (allTokens[row][pair].second == categoryType::LEFT_PAREN && allTokens[row][pair - 1].second ==
+            else if (row > 0) {
+                if (lineTokens[row].second == categoryType::LEFT_PAREN && lineTokens[row - 1].second ==
                 categoryType::NUMERIC_LITERAL) {
                     cout << "\n**ERROR: Invalid syntax.**\n" << endl;
-                    cout << "Line " << row + 1 << ":" << pair << endl << endl;
                     return "err";
                 }
             }
             
         }
-    }
     return "noErr";
+}
+
+std::string expEvaluator::evaluate(tokenLineType line) {
+    LexicalAnalyzer lexAnalysis;
+    vector<string> temp;
+
+    // proofread code for errors before running it through infix/postfix conversions
+    string result = checkForErrors(line);
+    if (result != "err") {
+        tokenLineType subLine;
+
+        string postfix = infixToPostfix(line);
+        lexAnalysis.tokenInfo.clear();
+        temp.push_back(postfix);
+        lexAnalysis.tokenize(temp);
+        // convert to nice formatting using a string stream
+        std::ostringstream oss;
+        oss << std::setprecision(8) << std::noshowpoint << postfixEval(lexAnalysis.tokenInfo[0]);
+        return oss.str();
+    }
+    else return "";
 }

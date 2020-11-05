@@ -135,8 +135,6 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                 lineTokens.push_back(make_pair(token, type));
                 int counter = 1;
 
-                
-
                 // catch the case where codeLines[i][j + counter] doesn't exist
                 if (j + counter > codeLines[i].length()) {
                     cout << "\n**ERROR: Unbalanced parentheses.**\n" << endl;
@@ -145,9 +143,10 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
 
 
                 }
+
                 else if (j + counter < codeLines[i].length()) {
-                    // catch missing right parentheses
-                    while (codeLines[i][j + counter] != ')') {
+                    // catch missing right parentheses if codeLines[i][j + counter] exists
+                    while (codeLines[i][j + counter] && codeLines[i][j + counter] != ')') {
                         if (counter == codeLines[i].length()) {
                             cout << "\n**ERROR: Unbalanced parentheses.**\n" << endl;
                             cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
@@ -156,8 +155,6 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                         counter++;
                     }
                 }
-
-                
             }
             // right parenthesis
             else if (codeLines[i][j] == ')') {
