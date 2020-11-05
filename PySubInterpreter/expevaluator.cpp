@@ -278,8 +278,33 @@ std::string expEvaluator::evaluate(tokenLineType line) {
     // proofread code for errors before running it through infix/postfix conversions
     string result = checkForErrors(line);
     if (result != "err") {
-        tokenLineType subLine;
-
+        //tokenLineType subLine;
+        for (int i = 0; i < line.size(); i++) {
+            if (line[i].second == categoryType::STRING_LITERAL) {
+                if (line.size() == 1) {
+                    return line[i].first;
+                }
+                /* else if (line.size() > 1) {
+                    int counter = 1;
+                    while (line[i + counter].second != categoryType::STRING_LITERAL) {
+                        if (i + counter - 1 > line.size()) {
+                            break;
+                        }
+                        subLine.push_back(line[i]);
+                    }
+                } */
+            }
+            else {
+                string postfix = infixToPostfix(line);
+                lexAnalysis.tokenInfo.clear();
+                temp.push_back(postfix);
+                lexAnalysis.tokenize(temp);
+                // convert to nice formatting using a string stream
+                std::ostringstream oss;
+                oss << std::setprecision(8) << std::noshowpoint << postfixEval(lexAnalysis.tokenInfo[0]);
+                return oss.str();
+            }
+        }
         string postfix = infixToPostfix(line);
         lexAnalysis.tokenInfo.clear();
         temp.push_back(postfix);

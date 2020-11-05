@@ -185,6 +185,7 @@ void Interface::startInterface() {
             vector<string> temp;
             temp.push_back(input);
             lexAnalysis.tokenize(temp);
+            //lexAnalysis.display(lexAnalysis.tokenInfo);
             cout << expEvaluation.evaluate(lexAnalysis.tokenInfo[0]) << endl;
         }
     }

@@ -1,4 +1,7 @@
-﻿  expevaluator.cpp
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\expevaluator.cpp(188,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\expevaluator.cpp(209,55): warning C4018: '<': signed/unsigned mismatch
+﻿  interpreter.cpp
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(14,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(22,26): warning C4018: '>': signed/unsigned mismatch
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(28,93): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(45,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interpreter.cpp(73,23): warning C4018: '<': signed/unsigned mismatch
   PySubInterpreter.vcxproj -> C:\Users\Joel\source\repos\PySubInterpreter\Debug\PySubInterpreter.exe
