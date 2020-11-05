@@ -4,7 +4,6 @@
 #include "lexicalanalyzer.h"
 
 class Interpreter {
-private:
 public:
 	bool interpretLine(tokenLineType);
 };

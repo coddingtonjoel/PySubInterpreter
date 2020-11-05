@@ -11,7 +11,7 @@ using namespace std;
 
 void Interface::startInterface() {
     LexicalAnalyzer lexAnalysis;
-    expEvaluator expEvaluation;
+    static expEvaluator expEvaluation;
     Interpreter pysubi;
 
 
@@ -88,7 +88,7 @@ void Interface::startInterface() {
                 cout << "----------------------------------------------------------" << endl << endl;
             }
             else {
-                cout << "No variables are currently stored. Store a file using the 'read' command." << endl;
+                cout << "No variables are currently stored. Update variables and perform this command again after using 'run'." << endl;
             }
         }
 

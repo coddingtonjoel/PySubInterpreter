@@ -8,13 +8,26 @@
 using namespace std;
 
 bool Interpreter::interpretLine(tokenLineType lineTokens) {
-	expEvaluator expEvaluation;
+	static expEvaluator expEvaluation;
 	LexicalAnalyzer lexAnalysis;
 
 	for (int i = 0; i < lineTokens.size(); i++) {
 		// comments
 		if (lineTokens[i].second == categoryType::COMMENT) {
 			return true;
+		}
+		// assignment
+		else if (lineTokens[i].second == categoryType::ASSIGNMENT_OP) {
+			if (i != 0) {
+				tokenLineType subLine;
+				int counter = 1;
+				while (i + counter <= lineTokens.size() - 1) {
+					subLine.push_back(lineTokens[i + counter]);
+					counter++;
+				}
+				string rValue = expEvaluation.evaluate(subLine);
+				expEvaluation.storeSymbol(lineTokens[i - 1].first, rValue);
+			}
 		}
 		// print()
 		else if (lineTokens[i].second == categoryType::KEYWORD && lineTokens[i].first == "print") {
@@ -38,13 +51,11 @@ bool Interpreter::interpretLine(tokenLineType lineTokens) {
 				// push back outstanding line on the right of last comma, or the sole expr with no comma in the statement
 				subLines.push_back(subLine);
 
-				// if subLines.size() > 1, it's assumed that it is an expression
+				// evaluate contents
 				for (int i = 0; i < subLines.size(); i++) {
-					if (subLines[i].size() > 1) {
-						string temp = expEvaluation.evaluate(subLines[i]);
-						subLines[i].clear();
-						subLines[i].push_back(make_pair(temp, categoryType::STRING_LITERAL));
-					}
+					string temp = expEvaluation.evaluate(subLines[i]);
+					subLines[i].clear();
+					subLines[i].push_back(make_pair(temp, categoryType::STRING_LITERAL));
 				}
 
 				// get rid of quotes on the string literals

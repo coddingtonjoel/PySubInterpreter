@@ -192,7 +192,7 @@ std::string expEvaluator::checkForErrors(tokenLineType lineTokens) {
                 return "err";
             }*/
             // if an operator is the very first or very last token within a line
-            else if (lineTokens[row].second == categoryType::ARITH_OP || lineTokens[row].second ==
+            if (lineTokens[row].second == categoryType::ARITH_OP || lineTokens[row].second ==
                 categoryType::ASSIGNMENT_OP || lineTokens[row].second == categoryType::RELATIONAL_OP ||
                 lineTokens[row].second == categoryType::LOGICAL_OP) {
                 if (row == 0) {
@@ -278,8 +278,19 @@ std::string expEvaluator::evaluate(tokenLineType line) {
     // proofread code for errors before running it through infix/postfix conversions
     string result = checkForErrors(line);
     if (result != "err") {
-        //tokenLineType subLine;
         for (int i = 0; i < line.size(); i++) {
+            if (line[i].second == categoryType::IDENTIFIER) {
+                string value = getSymbol(line[i].first);
+                if (value != "ERR") {
+                    line[i].first = value;
+                    // add checking for all primitive types TODO, not just numbers
+                    line[i].second = categoryType::NUMERIC_LITERAL;
+                }
+                else {
+                    cout << "**ERROR: Uninitialized variable called." << endl;
+                    return "";
+                }   
+            }
             if (line[i].second == categoryType::STRING_LITERAL) {
                 if (line.size() == 1) {
                     return line[i].first;
@@ -291,8 +302,8 @@ std::string expEvaluator::evaluate(tokenLineType line) {
                 temp.push_back(postfix);
                 lexAnalysis.tokenize(temp);
                 // convert to nice formatting using a string stream
-                std::ostringstream oss;
-                oss << std::setprecision(8) << std::noshowpoint << postfixEval(lexAnalysis.tokenInfo[0]);
+                ostringstream oss;
+                oss << setprecision(8) << noshowpoint << postfixEval(lexAnalysis.tokenInfo[0]);
                 return oss.str();
             }
         }
@@ -301,8 +312,8 @@ std::string expEvaluator::evaluate(tokenLineType line) {
         temp.push_back(postfix);
         lexAnalysis.tokenize(temp);
         // convert to nice formatting using a string stream
-        std::ostringstream oss;
-        oss << std::setprecision(8) << std::noshowpoint << postfixEval(lexAnalysis.tokenInfo[0]);
+        ostringstream oss;
+        oss << setprecision(8) << noshowpoint << postfixEval(lexAnalysis.tokenInfo[0]);
         return oss.str();
     }
     else return "";
