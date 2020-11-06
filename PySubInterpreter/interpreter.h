@@ -5,7 +5,7 @@
 
 class Interpreter {
 public:
-	bool interpretLine(tokenLineType);
+	void interpretLine(tokenLineType);
 };
 
 #endif // !INTERPRETER_H

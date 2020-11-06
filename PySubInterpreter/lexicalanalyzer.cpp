@@ -49,6 +49,15 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                     type = categoryType::KEYWORD;
                     j = j + 4;
                 }
+                // INPUT keyword
+                else if (codeLines[i][j] == 'i' && codeLines[i][j + 1] == 'n' && codeLines[i][j + 2] == 'p' && codeLines[i][j + 3] == 'u' && codeLines[i][j +
+                    4] == 't' &&
+                    !isalpha(codeLines[i][j
+                        + 5])) {
+                    token = "input";
+                    type = categoryType::KEYWORD;
+                    j = j + 4;
+                }
                 // IF keyword
                 else if (codeLines[i][j] == 'i' && codeLines[i][j + 1] == 'f' &&
                                                    !isalpha(codeLines[i][j
@@ -88,6 +97,12 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                     token = "while";
                     type = categoryType::KEYWORD;
                     j = j + 4;
+                }
+                // INT keyword
+                else if (codeLines[i][j] == 'i' && codeLines[i][j + 1] == 'n' && codeLines[i][j + 2] == 't') {
+                    token = "int";
+                    type = categoryType::KEYWORD;
+                    j = j + 2;
                 }
                 // AND logical operator
                 else if (codeLines[i][j] == 'a' && codeLines[i][j + 1] == 'n' && codeLines[i][j + 2] == 'd' &&
@@ -174,34 +189,12 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                 type = categoryType::STRING_LITERAL;
                 int counter = 1;
 
-                // single quote
-                if (codeLines[i][j] == '\"') {
-                    while (codeLines[i][j + counter] != '\"') {
-                        if (codeLines[i][j + counter] == '\'') {
-                            cout << "\n**ERROR: Incorrect string literal usage. Expected \" and received \'.**\n" <<
-                            endl;
-                            cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
-                            return false;
-                        }
-                        token.push_back(codeLines[i][j + counter]);
-                        counter++;
-                        // unterminated string literal; missing matching quotes
-                        if (counter > codeLines[i].length()) {
-                            cout << "\n**ERROR: Unterminated string literal.**\n" << endl;
-                            cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
-                            return false;
-                        }
-                    }
-                    j = j + counter;
-                    token = "\"" + token + "\"";
-                }
-
-                    // double quote
-                else if (codeLines[i][j] == '\'') {
+                // double quote
+                if (codeLines[i][j] == '\'') {
                     while (codeLines[i][j + counter] != '\'') {
                         if (codeLines[i][j + counter] == '\"') {
                             cout << "\n**ERROR: Incorrect string literal usage. Expected \' and received \".**\n" <<
-                            endl;
+                                endl;
                             cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
                             return false;
                         }
@@ -216,6 +209,22 @@ bool LexicalAnalyzer::tokenize(vector<string> &codeLines) {
                     }
                     j = j + counter;
                     token = "\'" + token + "\'";
+                }
+
+                // single quote
+                else if (codeLines[i][j] == '\"') {
+                    while (codeLines[i][j + counter] != '\"') {
+                        token.push_back(codeLines[i][j + counter]);
+                        counter++;
+                        // unterminated string literal; missing matching quotes
+                        if (counter > codeLines[i].length()) {
+                            cout << "\n**ERROR: Unterminated string literal.**\n" << endl;
+                            cout << "Line " << i + 1 << ":" << j + 1 << " : " << codeLines[i] << endl << endl;
+                            return false;
+                        }
+                    }
+                    j = j + counter;
+                    token = "\"" + token + "\"";
                 }
                 lineTokens.push_back(make_pair(token, type));
             }

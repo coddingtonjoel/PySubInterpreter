@@ -15,7 +15,7 @@ void Interface::startInterface() {
     Interpreter pysubi;
 
 
-    cout << "Python Interpreter 1.0 - Joel Coddington ©2020" << endl;
+    cout << "Python Interpreter 1.0 - Joel Coddington - Fall 2020" << endl;
     cout << "Enter program lines or read(<filename>.py) in CLI." << endl;
     cout << "Type 'help' for more information or 'quit' to exit." << endl;
 
@@ -79,17 +79,7 @@ void Interface::startInterface() {
 
         // show(variables)
         else if (input == "show(variables)") {
-            if (!expEvaluation.symbolTable.empty()) {
-                cout << "\nStored Symbols:" << endl;
-                cout << "----------------------------------------------------------" << endl;
-                for (auto pair : expEvaluation.symbolTable) {
-                    cout << setw(15) << left << pair.first << pair.second << endl;
-                }
-                cout << "----------------------------------------------------------" << endl << endl;
-            }
-            else {
-                cout << "No variables are currently stored. Update variables and perform this command again after using 'run'." << endl;
-            }
+            expEvaluation.displaySymbols();
         }
 
         // run
@@ -184,9 +174,11 @@ void Interface::startInterface() {
             lexAnalysis.tokenInfo.clear();
             vector<string> temp;
             temp.push_back(input);
-            lexAnalysis.tokenize(temp);
-            //lexAnalysis.display(lexAnalysis.tokenInfo);
-            cout << expEvaluation.evaluate(lexAnalysis.tokenInfo[0]) << endl;
+            
+            // if tokenization doesn't return false, evaluate expr
+            if (lexAnalysis.tokenize(temp)) {
+                cout << expEvaluation.evaluate(lexAnalysis.tokenInfo[0]) << endl;
+            }            
         }
     }
 }

@@ -12,7 +12,7 @@ private:
     friend class Interpreter;
 
     typedef std::map<std::string, std::string> symbolTableType;
-    symbolTableType symbolTable;
+    static symbolTableType symbolTable;
 
     std::string infixToPostfix(tokenLineType);
     double postfixEval(tokenLineType);
@@ -22,6 +22,7 @@ private:
     int getPrecedence(const std::string&);
     std::string checkForErrors(tokenLineType);
     std::string evaluate(tokenLineType);
+    void displaySymbols();
 };
 
 
