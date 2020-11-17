@@ -7,24 +7,137 @@
 
 using namespace std;
 
-void Interpreter::interpretLine(tokenLineType lineTokens) {
+int Interpreter::interpretLine(tokenType lineTokens, int n = 0) {
+	// n short for lineNum (current line as of passed parameter)
+	// returns lines to skip (for block purposes)
 	static expEvaluator expEvaluation;
 	LexicalAnalyzer lexAnalysis;
-
-	for (int i = 0; i < lineTokens.size(); i++) {
+	for (int i = 0; i < lineTokens[n].size(); i++) {
 		// comments
-		if (lineTokens[i].second == categoryType::COMMENT) {
+		if (lineTokens[n][i].second == categoryType::COMMENT) {
 			break;
 		}
+		// if statement
+		else if (lineTokens[n][i].second == categoryType::KEYWORD && (lineTokens[n][i].first == "if" || lineTokens[n][i].first == "elif")) {
+			tokenLineType subLine;
+			int counter = 1;
+
+			// get the exp in a subLine and evaluate it with expEvaluation
+
+			while (lineTokens[n][i + counter].second != categoryType::COLON && lineTokens[n].size() >= i + counter) {
+				subLine.push_back(make_pair(lineTokens[n][i + counter].first, lineTokens[n][i + counter].second));
+				counter++;
+			}
+
+			string eval;
+
+			// check for errors within expression
+			if (expEvaluation.checkForErrors(subLine) == "noErr") {
+				// check if expression is true or false
+				eval = expEvaluation.evaluate(subLine);
+			}
+			
+			for (auto n : subLine) {
+				cout << n.first << " ";
+			}
+			cout << "\n= " << eval << endl << endl;
+			
+			// if original "if" expression is true
+			if (eval == "1") {
+				int j = 1;
+				// store each proceeding line with ** lineTokens[n][0].second == categoryType::INDENT ** in the stack
+				while (n + j < lineTokens.size() && lineTokens[n + j][0].second == categoryType::INDENT) {
+					block.push_back(lineTokens[n + j]);
+					j++;
+				}
+				// interpret each statement in the block
+				while (!block.empty()) {
+					interpretLine(block);
+					block.erase(block.begin());
+				}
+				// skip j of the next lines while interpreting the file
+				return n + j;
+			}
+			// if original "if" expression is false
+			else {
+				int j = 0;
+				int k = 1;
+				block.clear();
+				// else
+				while (n + j < lineTokens.size()) {
+					if (lineTokens[n + j][0].second == categoryType::KEYWORD && lineTokens[n + j][0].first == "else") {
+						// block within else statement
+						while (n + j + k < lineTokens.size() && lineTokens[n + j + k][0].second == categoryType::INDENT) {
+							block.push_back(lineTokens[n + j + k]);
+							k++;
+						}
+					}
+					j++;
+				}
+				// interpret each statement in the block
+				while (!block.empty()) {
+					interpretLine(block);
+					block.erase(block.begin());
+				}
+				return j + k;
+			}
+
+		}
+		// while loop
+		else if (lineTokens[n][i].second == categoryType::KEYWORD && lineTokens[n][i].first == "while") {
+			tokenLineType subLine;
+			int counter = 1;
+
+			// get the exp in a subLine and evaluate it with expEvaluation
+
+			while (lineTokens[n][i + counter].second != categoryType::COLON && lineTokens[n].size() >= i + counter) {
+				subLine.push_back(make_pair(lineTokens[n][i + counter].first, lineTokens[n][i + counter].second));
+				counter++;
+			}
+
+			string eval;
+
+			// check for errors within expression
+			if (expEvaluation.checkForErrors(subLine) == "noErr") {
+				// check if expression is true or false
+				eval = expEvaluation.evaluate(subLine);
+			}
+
+			// loop contitional is fufilled
+			if (eval == "1") {
+				int j = 1;
+				while (eval != "0") {
+					while (n + j < lineTokens.size() && lineTokens[n + j][0].second == categoryType::INDENT) {
+						block.push_back(lineTokens[n + j]);
+						j++;
+					}
+					// interpret each statement in the block
+					while (!block.empty()) {
+						interpretLine(block);
+						block.erase(block.begin());
+					}
+				}
+				return n + j;
+			}
+			// skip over remaining statement
+			else {
+				int j = 1;
+				while (n + j < lineTokens.size() && lineTokens[n + j][0].second == categoryType::INDENT) {
+					block.push_back(lineTokens[n + j]);
+					j++;
+				}
+				return n + j;
+			}
+		}
 		// int conversion
-		else if (lineTokens[i].second == categoryType::KEYWORD && lineTokens[i].first == "int") {
-			if (lineTokens.size() > i && lineTokens[i + 1].second == categoryType::LEFT_PAREN) {
+		else if (lineTokens[n][i].second == categoryType::KEYWORD && lineTokens[n][i].first == "int") {
+			if (lineTokens[n].size() > i && lineTokens[n][i + 1].second == categoryType::LEFT_PAREN) {
 				vector<tokenLineType> subLines;
 				int counter = 2;
 				tokenLineType subLine;
 
-				while (lineTokens[i + counter].second != categoryType::RIGHT_PAREN && lineTokens.size() >= i + counter) {
-					subLine.push_back(lineTokens[i + counter]);
+				while (lineTokens[n][i + counter].second != categoryType::RIGHT_PAREN && lineTokens[n].size() >= i + counter) {
+					subLine.push_back(lineTokens[n][i + counter]);
 					counter++;
 				}
 				// push back outstanding line on the right of last comma, or the sole expr with no comma in the statement
@@ -91,19 +204,19 @@ void Interpreter::interpretLine(tokenLineType lineTokens) {
 			}
 		}
 		// assignment
-		else if (lineTokens[i].second == categoryType::ASSIGNMENT_OP) {
+		else if (lineTokens[n][i].second == categoryType::ASSIGNMENT_OP) {
 			if (i != 0) {
 				// make sure variables aren't dedicated keywords
-				if (lineTokens[i - 1].first == "print" || lineTokens[i - 1].first == "input" || lineTokens[i - 1].first == "if" || lineTokens[i - 1].first == "elif" || 
-					lineTokens[i - 1].first == "else" || lineTokens[i - 1].first == "for" || lineTokens[i - 1].first == "while" || lineTokens[i - 1].first == "and" || lineTokens[i = 1].first == "int" || 
-					lineTokens[i - 1].first == "or" || lineTokens[i - 1].first == "not") {
+				if (lineTokens[n][i - 1].first == "print" || lineTokens[n][i - 1].first == "input" || lineTokens[n][i - 1].first == "if" || lineTokens[n][i - 1].first == "elif" || 
+					lineTokens[n][i - 1].first == "else" || lineTokens[n][i - 1].first == "for" || lineTokens[n][i - 1].first == "while" || lineTokens[n][i - 1].first == "and" || lineTokens[n][i = 1].first == "int" || 
+					lineTokens[n][i - 1].first == "or" || lineTokens[n][i - 1].first == "not") {
 					cout << "\n**ERROR: Cannot store variable names that match protected Python keywords.**\n" << endl;
 					break;
 				}
 				tokenLineType subLine;
 				int counter = 1;
-				while (i + counter <= lineTokens.size() - 1) {
-					subLine.push_back(lineTokens[i + counter]);
+				while (i + counter <= lineTokens[n].size() - 1) {
+					subLine.push_back(lineTokens[n][i + counter]);
 					counter++;
 				}
 
@@ -183,8 +296,13 @@ void Interpreter::interpretLine(tokenLineType lineTokens) {
 										cout << final;
 										cin >> response;
 										rValue = response;
-										expEvaluation.storeSymbol(lineTokens[0].first, rValue);
-										return;
+										if (lineTokens[n][0].second == categoryType::INDENT) {
+											expEvaluation.storeSymbol(lineTokens[n][1].first, rValue);
+										}
+										else {
+											expEvaluation.storeSymbol(lineTokens[n][0].first, rValue);
+										}
+										return 0;
 									}
 								}
 							}
@@ -294,21 +412,27 @@ void Interpreter::interpretLine(tokenLineType lineTokens) {
 				else {
 					rValue = expEvaluation.evaluate(subLine);
 				}
-				expEvaluation.storeSymbol(lineTokens[i - 1].first, rValue);
+
+				if (lineTokens[n][i - 1].second == categoryType::INDENT) {
+					expEvaluation.storeSymbol(lineTokens[n][i].first, rValue);
+				}
+				else {
+					expEvaluation.storeSymbol(lineTokens[n][i - 1].first, rValue);
+				}
 			}
 		}
 		
 		// print()
-		else if (lineTokens[i].second == categoryType::KEYWORD && lineTokens[i].first == "print") {
+		else if (lineTokens[n][i].second == categoryType::KEYWORD && lineTokens[n][i].first == "print") {
 			// expects left parenthesis after keyword 'print'
-			if (lineTokens.size() > i && lineTokens[i + 1].second == categoryType::LEFT_PAREN) {
+			if (lineTokens[n].size() > i && lineTokens[n][i + 1].second == categoryType::LEFT_PAREN) {
 				vector<tokenLineType> subLines;
 				int counter = 2;
 				tokenLineType subLine;
 
 				// gather the different string literals and numbers on the left and right of commas
-				while (lineTokens[i + counter].second != categoryType::RIGHT_PAREN && lineTokens.size() >= i + counter) {
-					if (lineTokens[i + counter].second == categoryType::COMMA) {
+				while (lineTokens[n][i + counter].second != categoryType::RIGHT_PAREN && lineTokens[n].size() >= i + counter) {
+					if (lineTokens[n][i + counter].second == categoryType::COMMA) {
 						subLines.push_back(subLine);
 						subLine.clear();
 					}
@@ -316,11 +440,11 @@ void Interpreter::interpretLine(tokenLineType lineTokens) {
 					else {
 						string nestedIntConversion;
 						// but if there's a nested int function, evaluate what's inside
-						if (lineTokens[i + counter].second == categoryType::KEYWORD && lineTokens[i + counter].first == "int") {
+						if (lineTokens[n][i + counter].second == categoryType::KEYWORD && lineTokens[n][i + counter].first == "int") {
 							tokenLineType intSubLine;
 							int nestedCounter = 2;
-							while (lineTokens[i + counter + nestedCounter].second != categoryType::RIGHT_PAREN) {
-								intSubLine.push_back(lineTokens[i + counter + nestedCounter]);
+							while (lineTokens[n][i + counter + nestedCounter].second != categoryType::RIGHT_PAREN) {
+								intSubLine.push_back(lineTokens[n][i + counter + nestedCounter]);
 								nestedCounter++;
 							}
 
@@ -340,7 +464,7 @@ void Interpreter::interpretLine(tokenLineType lineTokens) {
 							i += nestedCounter;
 						}
 						else {
-							subLine.push_back(lineTokens[i + counter]);
+							subLine.push_back(lineTokens[n][i + counter]);
 						}
 						
 					}
@@ -397,4 +521,18 @@ void Interpreter::interpretLine(tokenLineType lineTokens) {
 			}
 		}
 	}
+	return 0;
+}
+
+void Interpreter::clearStack() {
+	while (!block.empty()) {
+		block.pop_back();
+	}
+}
+
+bool Interpreter::isStackEmpty() {
+	if (block.size() == 0) {
+		return true;
+	}
+	else return false;
 }

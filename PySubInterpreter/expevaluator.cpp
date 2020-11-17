@@ -279,19 +279,23 @@ std::string expEvaluator::evaluate(tokenLineType line) {
     string result = checkForErrors(line);
     if (result != "err") {
         for (int i = 0; i < line.size(); i++) {
-            // substitute identifiers for their symbol table values
-            if (line[i].second == categoryType::IDENTIFIER) {
-                string value = getSymbol(line[i].first);
-                if (value != "ERR") {
-                    line[i].first = value;
-                    // all symbols come out of the table as string literals by default
-                    line[i].second = categoryType::NUMERIC_LITERAL;
+            // substitute all identifiers for their symbol table values
+            int counter = 0;
+            while (i + counter < line.size()) {
+                if (line[i + counter].second == categoryType::IDENTIFIER) {
+                    string value = getSymbol(line[i + counter].first);
+                    if (value != "ERR") {
+                        line[i + counter].first = value;
+                        line[i + counter].second = categoryType::NUMERIC_LITERAL;
+                    }
+                    else {
+                        cout << "**ERROR: Uninitialized variable called." << endl;
+                        return "";
+                    }   
                 }
-                else {
-                    cout << "**ERROR: Uninitialized variable called." << endl;
-                    return "";
-                }   
+                counter++;
             }
+            
             // return string literals by default if they're the only token
             if (line[i].second == categoryType::STRING_LITERAL) {
                 if (line.size() == 1) {
@@ -303,9 +307,10 @@ std::string expEvaluator::evaluate(tokenLineType line) {
                 lexAnalysis.tokenInfo.clear();
                 temp.push_back(postfix);
                 lexAnalysis.tokenize(temp);
+                //lexAnalysis.display(lexAnalysis.tokenInfo);
+
                 // convert to nice formatting using a string stream
                 ostringstream oss;
-                //oss << setprecision(8) << noshowpoint << postfixEval(lexAnalysis.tokenInfo[0]);
                 oss << postfixEval(lexAnalysis.tokenInfo[0]);
                 return oss.str();
             }

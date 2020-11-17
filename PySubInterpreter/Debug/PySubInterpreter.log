@@ -1,1 +1,4 @@
-﻿  PySubInterpreter.vcxproj -> C:\Users\Joel\source\repos\PySubInterpreter\Debug\PySubInterpreter.exe
+﻿  interface.cpp
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interface.cpp(61,35): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Joel\source\repos\PySubInterpreter\PySubInterpreter\interface.cpp(92,35): warning C4018: '<': signed/unsigned mismatch
+  PySubInterpreter.vcxproj -> C:\Users\Joel\source\repos\PySubInterpreter\Debug\PySubInterpreter.exe

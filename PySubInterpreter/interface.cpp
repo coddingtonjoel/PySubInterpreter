@@ -90,7 +90,8 @@ void Interface::startInterface() {
 
                 // run each tokenized line through the interpreter
                 for (int i = 0; i < programCode.size(); i++) {
-                    pysubi.interpretLine(lexAnalysis.tokenInfo[i]);
+                    int linesToSkip = pysubi.interpretLine(lexAnalysis.tokenInfo, i);
+                    i += linesToSkip;
                 }
             }
             else {
@@ -177,7 +178,10 @@ void Interface::startInterface() {
             
             // if tokenization doesn't return false, evaluate expr
             if (lexAnalysis.tokenize(temp)) {
-                cout << expEvaluation.evaluate(lexAnalysis.tokenInfo[0]) << endl;
+                string res = expEvaluation.checkForErrors(lexAnalysis.tokenInfo[0]);
+                if (res == "noErr") {
+                    cout << pysubi.interpretLine(lexAnalysis.tokenInfo, 0) << endl;
+                } 
             }            
         }
     }
